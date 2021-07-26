@@ -1,21 +1,28 @@
 import React from 'react';
 
 export interface ITask {
-    author: string;
-    title: string;
-    description: string;
+    author: string
+    title: string
+    description?: string
+    comments?: Array<string>
+};
+
+type Props = {
+  task: ITask,
+  showPopup: () => void
 }
 
-function Task({ author, title, description }: ITask): JSX.Element {
+function Task({task, showPopup}: Props): JSX.Element {
     return (
-        <div className="card mb-3">
-            <div className="card-body">
-                <h4 className="card-title">{author}</h4>
-                <h5 className="card-title">{title}</h5>
-                <p className="card-text">{description}</p>
-                <button className="btn btn-primary">Show</button>
+        <React.Fragment>
+            <div className="card mb-3" onClick={() => {showPopup()}}>
+                <div className="card-body p-2">
+                    <h5 className="card-title">{task.author}</h5>
+                    <p className="card-title">{task.title}</p>
+                    {task.comments?.length && <div>Comments: {task.comments.length}</div>}
+                </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 export default Task;

@@ -25,7 +25,11 @@ function UserPopup({ setName }: Props): JSX.Element | null {
             <Overlay>
                 <Form onSubmit={onSetName}>
                     <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Name:
+                        </label>
                         <input
+                            id="name"
                             type="text"
                             placeholder="What is your name?"
                             value={userName}
@@ -33,9 +37,15 @@ function UserPopup({ setName }: Props): JSX.Element | null {
                             className="form-control"
                         />
                     </div>
-                    <button className="btn btn-primary" type="submit" disabled={userName.length === 0}>
-                        Send
-                    </button>
+                    
+                        <button
+                            className="btn btn-secondary ms-auto d-block"
+                            type="submit"
+                            disabled={userName.length === 0}
+                        >
+                            Send
+                        </button>
+                    
                 </Form>
             </Overlay>
         );

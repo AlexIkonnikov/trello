@@ -19,7 +19,7 @@ function Board(): JSX.Element {
             <div className="container">
                 <div className="row justify-content-between">
                     {defaultColumnsName.map((columnName) => {
-                        return <Column name={columnName} key={columnName} />;
+                        return <Column author={userName} name={columnName} key={columnName} />;
                     })}
                 </div>
             </div>
