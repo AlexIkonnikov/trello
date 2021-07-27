@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Overlay } from './../../utils/Overlay';
-import { Form } from './../../utils/Form';
+import { FormWrapper } from './../../utils/Form';
 
 interface Props {
     setName: (name: string) => void;
@@ -23,21 +23,22 @@ function UserPopup({ setName }: Props): JSX.Element | null {
     if (visible) {
         return (
             <Overlay>
-                <Form onSubmit={onSetName}>
-                    <div className="mb-3">
-                        <label htmlFor="name" className="form-label">
-                            Name:
-                        </label>
-                        <input
-                            id="name"
-                            type="text"
-                            placeholder="What is your name?"
-                            value={userName}
-                            onChange={onChangeName}
-                            className="form-control"
-                        />
-                    </div>
-                    
+                <FormWrapper>
+                    <form onSubmit={onSetName}>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                                Name:
+                            </label>
+                            <input
+                                id="name"
+                                type="text"
+                                placeholder="What is your name?"
+                                value={userName}
+                                onChange={onChangeName}
+                                className="form-control"
+                            />
+                        </div>
+
                         <button
                             className="btn btn-secondary ms-auto d-block"
                             type="submit"
@@ -45,8 +46,8 @@ function UserPopup({ setName }: Props): JSX.Element | null {
                         >
                             Send
                         </button>
-                    
-                </Form>
+                    </form>
+                </FormWrapper>
             </Overlay>
         );
     } else {
