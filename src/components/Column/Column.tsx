@@ -32,7 +32,7 @@ function Column({ nameOfColumn, author, index }: Props): JSX.Element {
     };
 
     return (
-        <div className="col-auto">
+        <div className="col-auto mb-3">
             <div style={{ background: '#ebecf0', borderRadius: '5px', padding: '10px' }}>
                 <form onSubmit={onChangeInputState}>
                     <input

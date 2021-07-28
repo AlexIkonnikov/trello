@@ -29,9 +29,9 @@ function Tasks({ userName, columnName, index }: Props): JSX.Element {
     const updateTask = (task: ITask): void => {
         localStorage.setItem(
             `column-data-${index}`,
-            JSON.stringify({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) }),
+            JSON.stringify({ ...state, tasks: state.tasks.map((it) => it.id === task.id ? task : it) }),
         );
-        setState({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) });
+        setState({ ...state, tasks: state.tasks.map((it) => it.id === task.id ? task : it) });
     };
 
     const deleteTask = (id: string): void => {

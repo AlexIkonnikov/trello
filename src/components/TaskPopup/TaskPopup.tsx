@@ -60,6 +60,12 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
         setState({ ...state, comments: [...state.comments, comment] });
     };
 
+    const onUpdateCommentHandler = (newComment: IComment): void => {
+      setState({ ...state, comments: state.comments.map((comment) => {
+          return comment.id === newComment.id ? newComment : comment;
+      })});
+    }
+
     const onDeleteCommentHandler = (id: string) => {
         setState({ ...state, comments: state.comments.filter((comment) => comment.id !== id) });
     };
@@ -130,6 +136,7 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
                     addComment={onAddCommentHandler}
                     deleteComment={onDeleteCommentHandler}
                     currentUser={currentUser}
+                    updateComment={onUpdateCommentHandler}
                 />
             </FormWrapper>
         </Overlay>
