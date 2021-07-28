@@ -37,7 +37,7 @@ function Comment({ comment, updateComment, deleteComment }: Props): JSX.Element 
                         <button className="btn btn-success btn-sm ms-2" type="submit">
                             save
                         </button>
-                        <button className="btn btn-warning btn-sm ms-2" onClick={() => {setMode(false)}}>
+                        <button type="button" className="btn btn-warning btn-sm ms-2" onClick={() => {setMode(false)}}>
                             cancel
                         </button>
                     </div>

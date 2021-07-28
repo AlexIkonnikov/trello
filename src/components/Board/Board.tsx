@@ -15,14 +15,21 @@ function Board(): JSX.Element {
     return (
         <React.Fragment>
             <UserPopup setName={onChangeUserName} />
-            <Header name={userName} />
-            <div className="container">
-                <div className="row justify-content-between">
-                    {defaultColumnsName.map((columnName, indexColumn) => {
-                        return <Column author={userName} nameOfColumn={columnName} key={columnName} index={indexColumn} />;
-                    })}
+                <Header name={userName}/>
+                <div className="container">
+                    <div className="row justify-content-between">
+                        {defaultColumnsName.map((columnName, indexColumn) => {
+                            return (
+                                <Column
+                                    author={userName}
+                                    nameOfColumn={columnName}
+                                    key={columnName}
+                                    index={indexColumn}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
         </React.Fragment>
     );
 }

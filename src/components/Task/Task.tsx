@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Card } from '../../ui/Card';
 import { IComment } from '../Comments/Comments';
 import TaskPopup from '../TaskPopup/TaskPopup';
 
@@ -25,11 +26,11 @@ function Task({ task, updateTask, deleteTask, columnName, userName }: Props): JS
     return (
         <React.Fragment>
             <section className="card mb-3" onClick={() => setPopupState(true)}>
-                <div className="card-body p-2">
+                <Card className="card-body p-2">
                     <h5 className="card-title">{task.author}</h5>
                     <p className="card-title">{task.title}</p>
                     {task.comments.length > 0 && <div>Comments: {task.comments.length}</div>}
-                </div>
+                </Card>
             </section>
             {popupIsVisible && (
                 <TaskPopup

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Overlay } from './../../utils/Overlay';
-import { FormWrapper } from './../../utils/Form';
+import { Overlay } from '../../ui/Overlay';
+import { FormWrapper } from '../../ui/Form';
 
 interface Props {
     setName: (name: string) => void;

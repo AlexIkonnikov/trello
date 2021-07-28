@@ -1,6 +1,6 @@
 import React from 'react';
-import { Overlay } from './../../utils/Overlay';
-import { FormWrapper } from './../../utils/Form';
+import { Overlay } from '../../ui/Overlay';
+import { FormWrapper } from '../../ui/Form';
 import { ITask } from './../Task/Task';
 import { useState } from 'react';
 import Comments, { IComment } from '../Comments/Comments';

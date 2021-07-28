@@ -1,5 +1,5 @@
 import React from 'react';
-import AddTaskForm from '../AddTaskForm/AddTaskForm';
+import AddTaskForm from '../TextForm/TextForm';
 import { v4 as uuidv4 } from 'uuid';
 import Comment from '../Comment/Comment';
 
@@ -40,7 +40,7 @@ function Comments({ comments, addComment, deleteComment, updateComment, currentU
             </ul>
             <hr />
             <h6>Write your comment: </h6>
-            <AddTaskForm submit={onAddCommentHandler} />
+            <AddTaskForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </React.Fragment>
     );
 }

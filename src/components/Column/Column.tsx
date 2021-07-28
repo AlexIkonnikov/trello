@@ -32,11 +32,11 @@ function Column({ nameOfColumn, author, index }: Props): JSX.Element {
     };
 
     return (
-        <div className="col-auto mb-3">
+        <div className="col mb-3">
             <div style={{ background: '#ebecf0', borderRadius: '5px', padding: '10px' }}>
                 <form onSubmit={onChangeInputState}>
                     <input
-                        className="text-center mb-2"
+                        className="form-control mb-2"
                         type="text"
                         readOnly={isInputDisabled}
                         value={columnName}

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import AddTaskForm from '../AddTaskForm/AddTaskForm';
+import React, { useState } from 'react';
+import AddTaskForm from '../TextForm/TextForm';
 import Task, { ITask } from './../Task/Task';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,7 +18,16 @@ const initialState: InitialStateType = {
 };
 
 function Tasks({ userName, columnName, index }: Props): JSX.Element {
-    const [state, setState] = useState(initialState);
+    const checkLocalStorage = (): InitialStateType => {
+        const data = localStorage.getItem(`column-data-${index}`);
+        if (data !== null) {
+            return JSON.parse(data);
+        } else {
+            return initialState;
+        }
+    };
+
+    const [state, setState] = useState(checkLocalStorage);
 
     const addTask = (title: string): void => {
         const newTask = { id: uuidv4(), author: userName, title, description: '', comments: [] };
@@ -29,9 +38,9 @@ function Tasks({ userName, columnName, index }: Props): JSX.Element {
     const updateTask = (task: ITask): void => {
         localStorage.setItem(
             `column-data-${index}`,
-            JSON.stringify({ ...state, tasks: state.tasks.map((it) => it.id === task.id ? task : it) }),
+            JSON.stringify({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) }),
         );
-        setState({ ...state, tasks: state.tasks.map((it) => it.id === task.id ? task : it) });
+        setState({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) });
     };
 
     const deleteTask = (id: string): void => {
@@ -41,13 +50,6 @@ function Tasks({ userName, columnName, index }: Props): JSX.Element {
         );
         setState({ ...state, tasks: state.tasks.filter((it) => it.id !== id) });
     };
-
-    useEffect(() => {
-        const data = localStorage.getItem(`column-data-${index}`);
-        if (data !== null) {
-            setState({ ...JSON.parse(data) });
-        }
-    }, []);
 
     return (
         <React.Fragment>
@@ -64,7 +66,7 @@ function Tasks({ userName, columnName, index }: Props): JSX.Element {
                     </React.Fragment>
                 );
             })}
-            <AddTaskForm submit={addTask} />
+            <AddTaskForm submit={addTask} inputPlaceholder="Write your task title.." buttonText="Add task" />
         </React.Fragment>
     );
 }
