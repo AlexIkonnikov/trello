@@ -25,13 +25,7 @@ function Task({ task, updateTask, deleteTask, columnName, userName }: Props): JS
 
     return (
         <React.Fragment>
-            <section className="card mb-3" onClick={() => setPopupState(true)}>
-                <Card className="card-body p-2">
-                    <h5 className="card-title">{task.author}</h5>
-                    <p className="card-title">{task.title}</p>
-                    {task.comments.length > 0 && <div>Comments: {task.comments.length}</div>}
-                </Card>
-            </section>
+            <Card author={task.author} title={task.title} commentCount={task.comments.length} onClick={() => setPopupState(true)} />
             {popupIsVisible && (
                 <TaskPopup
                     currentUser={userName}

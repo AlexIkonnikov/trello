@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Button } from '../../ui/Button';
+import { Input } from '../../ui/Input';
 import Tasks from '../Tasks/Tasks';
+import {Col} from './../../ui/Column';
 
 interface Props {
     nameOfColumn: string;
@@ -32,34 +35,22 @@ function Column({ nameOfColumn, author, index }: Props): JSX.Element {
     };
 
     return (
-        <div className="col mb-3">
-            <div style={{ background: '#ebecf0', borderRadius: '5px', padding: '10px' }}>
-                <form onSubmit={onChangeInputState}>
-                    <input
-                        className="form-control mb-2"
-                        type="text"
-                        readOnly={isInputDisabled}
-                        value={columnName}
-                        onDoubleClick={() => {
-                            setInputState(false);
-                        }}
-                        onChange={onChangeName}
-                    />
-                    {!isInputDisabled && (
-                        <div className="text-center">
-                            <button
-                                type="submit"
-                                className="btn btn-success btn-sm mb-2"
-                                disabled={columnName.length === 0}
-                            >
-                                Save
-                            </button>
-                        </div>
-                    )}
-                </form>
-                <Tasks userName={author} columnName={columnName} index={index} />
-            </div>
-        </div>
+        <Col>
+            <form onSubmit={onChangeInputState}>
+                <Input
+                    value={columnName}
+                    onChange={onChangeName}
+                    onClick={() => {
+                        setInputState(false);
+                    }}
+                    onBlur={() => {
+                      setInputState(true);
+                  }}
+                    readOnly={isInputDisabled}
+                />
+            </form>
+            <Tasks userName={author} columnName={columnName} index={index} />
+        </Col>
     );
 }
 

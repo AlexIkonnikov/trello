@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Button } from '../../ui/Button';
+import { Form } from '../../ui/Form';
+import { UserName } from '../../ui/UserName';
+import { Input } from './../../ui/Input';
 import { IComment } from './../Comments/Comments';
 
 type Props = {
@@ -24,47 +28,32 @@ function Comment({ comment, updateComment, deleteComment }: Props): JSX.Element 
     if (isEditMode) {
         return (
             <li key={comment.id} className="list-group-item mb-1 d-flex justify-content-between align-items-center">
-                <form className="row justify-content-between" onSubmit={onSubmitForm}>
-                    <div className="col-auto">
-                        <input
-                            className="form-control form-control-sm"
-                            type="text"
-                            value={commentMessage}
-                            onChange={onChangeCommentMessage}
-                        />
-                    </div>
-                    <div className="col-auto">
-                        <button className="btn btn-success btn-sm ms-2" type="submit">
-                            save
-                        </button>
-                        <button type="button" className="btn btn-warning btn-sm ms-2" onClick={() => {setMode(false)}}>
-                            cancel
-                        </button>
-                    </div>
-                </form>
+                <Form onSubmit={onSubmitForm}>
+                    <Input type="text" value={commentMessage} onChange={onChangeCommentMessage} />
+
+                    <Button text="save" type="submit" />
+                    <Button
+                        text="cancel"
+                        type="button"
+                        className="btn btn-warning btn-sm ms-2"
+                        onClick={() => {
+                            setMode(false);
+                        }}
+                    />
+                </Form>
             </li>
         );
     } else {
         return (
             <li key={comment.id} className="list-group-item mb-1 d-flex justify-content-between align-items-center">
-                <div>
-                    {comment.author}: {comment.text}
-                </div>
-                <div className="button-wrapper">
-                    <button
-                        className="btn btn-primary btn-sm me-2"
-                        onClick={() => {
-                            setMode(true);
-                        }}
-                    >
-                        edit
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-close btn-sm btn-danger"
-                        onClick={() => deleteComment(comment.id)}
-                    ></button>
-                </div>
+                <UserName userName={comment.author} />: {comment.text}
+                <Button
+                    text="edit"
+                    onClick={() => {
+                        setMode(true);
+                    }}
+                />
+                <Button text="delete" onClick={() => deleteComment(comment.id)} />
             </li>
         );
     }

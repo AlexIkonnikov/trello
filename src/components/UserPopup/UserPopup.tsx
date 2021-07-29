@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Overlay } from '../../ui/Overlay';
-import { FormWrapper } from '../../ui/Form';
+import { Button } from '../../ui/Button';
+import { Input } from '../../ui/Input';
+import { Form } from '../../ui/Form';
+import { Background } from '../../ui/Background';
 
 interface Props {
     setName: (name: string) => void;
@@ -23,31 +26,12 @@ function UserPopup({ setName }: Props): JSX.Element | null {
     if (visible) {
         return (
             <Overlay>
-                <FormWrapper>
-                    <form onSubmit={onSetName}>
-                        <div className="mb-3">
-                            <label htmlFor="name" className="form-label">
-                                Name:
-                            </label>
-                            <input
-                                id="name"
-                                type="text"
-                                placeholder="What is your name?"
-                                value={userName}
-                                onChange={onChangeName}
-                                className="form-control"
-                            />
-                        </div>
-
-                        <button
-                            className="btn btn-secondary ms-auto d-block"
-                            type="submit"
-                            disabled={userName.length === 0}
-                        >
-                            Send
-                        </button>
-                    </form>
-                </FormWrapper>
+                <Background>
+                    <Form onSubmit={onSetName}>
+                        <Input name="name" label="Name: " value={userName} onChange={onChangeName} />
+                        <Button text="send" type="submit" disabled={userName.length === 0} />
+                    </Form>
+                </Background>
             </Overlay>
         );
     } else {

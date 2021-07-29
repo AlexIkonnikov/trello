@@ -1,10 +1,14 @@
 import React from 'react';
 import { Overlay } from '../../ui/Overlay';
-import { FormWrapper } from '../../ui/Form';
 import { ITask } from './../Task/Task';
+import { Form } from './../../ui/Form';
 import { useState } from 'react';
 import Comments, { IComment } from '../Comments/Comments';
 import { useEffect } from 'react';
+import { Button } from '../../ui/Button';
+import { Input } from '../../ui/Input';
+import { Row } from '../../ui/Row';
+import { Background } from '../../ui/Background';
 
 type Props = {
     currentUser: string;
@@ -61,10 +65,13 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
     };
 
     const onUpdateCommentHandler = (newComment: IComment): void => {
-      setState({ ...state, comments: state.comments.map((comment) => {
-          return comment.id === newComment.id ? newComment : comment;
-      })});
-    }
+        setState({
+            ...state,
+            comments: state.comments.map((comment) => {
+                return comment.id === newComment.id ? newComment : comment;
+            }),
+        });
+    };
 
     const onDeleteCommentHandler = (id: string) => {
         setState({ ...state, comments: state.comments.filter((comment) => comment.id !== id) });
@@ -72,65 +79,37 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
 
     return (
         <Overlay onKeyDown={onCloseModal} tabIndex={0}>
-            <FormWrapper>
-                <form onSubmit={onSaveTask}>
-                    <div className="text-end">
-                        <button
-                            type="button"
-                            className="btn-close"
-                            onClick={() => {
-                                closePopup();
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            placeholder={'Author is: ' + task.author}
-                            readOnly={true}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input type="text" placeholder={columnName} readOnly={true} className="form-control" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="title" className="form-label">
-                            Title:{' '}
-                        </label>
-                        <input
-                            type="text"
-                            name="title"
-                            id="title"
-                            value={state.title}
-                            placeholder="Title.."
-                            className="form-control"
-                            onChange={onChangeHandler}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="description" className="form-label">
-                            Description:{' '}
-                        </label>
-                        <input
-                            type="text"
-                            name="description"
-                            id="description"
-                            value={state.description}
-                            placeholder="Description..."
-                            className="form-control"
-                            onChange={onChangeHandler}
-                        />
-                    </div>
-                    <div className="text-end">
-                        <button className="btn btn-primary" type="submit" disabled={state.title.length === 0}>
-                            Save
-                        </button>
-                        <button className="btn btn-danger ms-2" onClick={onDeleteTask}>
-                            Delete
-                        </button>
-                    </div>
-                </form>
+            <Background>
+                <Form onSubmit={onSaveTask}>
+                    <Button
+                        text="X"
+                        onClick={() => {
+                            closePopup();
+                        }}
+                    />
+                    <Input type="text" placeholder={'Author is: ' + task.author} readOnly={true} />
+                    <Input type="text" placeholder={columnName} readOnly={true} />
+                    <Input
+                        type="text"
+                        name="title"
+                        label="Title: "
+                        value={state.title}
+                        placeholder="Title.."
+                        onChange={onChangeHandler}
+                    />
+                    <Input
+                        type="text"
+                        name="description"
+                        label="Description: "
+                        value={state.description}
+                        placeholder="Description..."
+                        onChange={onChangeHandler}
+                    />
+                    <Row justifyContent="space-between">
+                        <Button text="save" type="submit" disabled={state.title.length === 0} />
+                        <Button text="delete" onClick={onDeleteTask} />
+                    </Row>
+                </Form>
                 <Comments
                     comments={state.comments}
                     addComment={onAddCommentHandler}
@@ -138,7 +117,7 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
                     currentUser={currentUser}
                     updateComment={onUpdateCommentHandler}
                 />
-            </FormWrapper>
+            </Background>
         </Overlay>
     );
 }

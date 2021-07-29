@@ -1,4 +1,7 @@
 import React from 'react';
+import { Container } from '../../ui/Container';
+import { Greeting } from '../../ui/Greeting';
+import { Header as StyledHeader } from './../../ui/Header';
 
 interface Props {
     name?: string;
@@ -6,13 +9,11 @@ interface Props {
 
 function Header({ name }: Props): JSX.Element {
     return (
-        <header className="mb-3">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div className="container">
-                    <b className="navbar-brand">{name ? 'Hello, ' + name : 'Hello, guest'}</b>
-                </div>
-            </nav>
-        </header>
+        <StyledHeader>
+            <Container>
+                <Greeting name={name} />
+            </Container>
+        </StyledHeader>
     );
 }
 

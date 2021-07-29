@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from '../../ui/Button';
+import { Form } from '../../ui/Form';
 import { Textarea } from '../../ui/Textarea';
 
 interface Props {
@@ -21,18 +23,10 @@ function TextForm({ submit, inputPlaceholder, buttonText }: Props): JSX.Element 
     };
 
     return (
-        <form onSubmit={onSubmitForm}>
-            <Textarea
-                className="form-control mb-2"
-                placeholder={inputPlaceholder}
-                value={state.title}
-                onChange={onTitleChange}
-                rows={2}
-            />
-            <button className="btn btn-success btn-sm ms-auto d-block" disabled={state.title.length === 0}>
-                {buttonText}
-            </button>
-        </form>
+        <Form onSubmit={onSubmitForm}>
+            <Textarea placeholder={inputPlaceholder} value={state.title} onChange={onTitleChange} />
+            <Button text={buttonText} type="submit" disabled={state.title.length === 0} />
+        </Form>
     );
 }
 

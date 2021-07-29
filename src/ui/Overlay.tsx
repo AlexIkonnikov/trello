@@ -1,6 +1,15 @@
 import styled from 'styled-components';
+import React, {FC, HTMLAttributes} from 'react';
 
-export const Overlay = styled.div`
+export const Overlay: FC<HTMLAttributes<HTMLElement>> = ({ children, ...all }) => {
+    return (
+        <StyledOverlay {...all}>
+            {children}
+        </StyledOverlay>
+    );
+};
+
+const StyledOverlay = styled.div`
     background: rgba(1, 1, 1, 0.6);
     display: flex;
     align-items: center;

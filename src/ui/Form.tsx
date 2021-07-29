@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import React, { FC, FormHTMLAttributes } from 'react';
 
-export const FormWrapper = styled.div`
-    padding: 10px;
-    background: rgb(235, 236, 240);
-    min-height: 100px;
-    min-width: 375px;
-    border-radius: 5px;
-`;
+export const Form: FC<FormHTMLAttributes<HTMLFormElement>> = ({ children, ...all }) => {
+    return <FormStyled {...all} >{children}</FormStyled>;
+};
+
+const FormStyled = styled.form``;

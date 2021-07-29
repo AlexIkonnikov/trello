@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Column from '../Column/Column';
 import UserPopup from '../UserPopup/UserPopup';
+import { GlobalStyle } from '../../ui/GlobalStyle';
+import { Container } from '../../ui/Container';
+import { Row } from '../../ui/Row';
 
 function Board(): JSX.Element {
     const [userName, setName] = useState('');
@@ -14,22 +17,18 @@ function Board(): JSX.Element {
 
     return (
         <React.Fragment>
+            <GlobalStyle />
             <UserPopup setName={onChangeUserName} />
-                <Header name={userName}/>
-                <div className="container">
-                    <div className="row justify-content-between">
-                        {defaultColumnsName.map((columnName, indexColumn) => {
-                            return (
-                                <Column
-                                    author={userName}
-                                    nameOfColumn={columnName}
-                                    key={columnName}
-                                    index={indexColumn}
-                                />
-                            );
-                        })}
-                    </div>
-                </div>
+            <Header name={userName} />
+            <Container>
+                <Row>
+                    {defaultColumnsName.map((columnName, indexColumn) => {
+                        return (
+                            <Column author={userName} nameOfColumn={columnName} key={columnName} index={indexColumn} />
+                        );
+                    })}
+                </Row>
+            </Container>
         </React.Fragment>
     );
 }

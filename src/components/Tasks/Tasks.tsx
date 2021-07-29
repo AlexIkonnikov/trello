@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import AddTaskForm from '../TextForm/TextForm';
 import Task, { ITask } from './../Task/Task';
 import { v4 as uuidv4 } from 'uuid';
+import TextForm from './../TextForm/TextForm';
 
 interface Props {
     userName: string;
@@ -66,7 +66,7 @@ function Tasks({ userName, columnName, index }: Props): JSX.Element {
                     </React.Fragment>
                 );
             })}
-            <AddTaskForm submit={addTask} inputPlaceholder="Write your task title.." buttonText="Add task" />
+            <TextForm submit={addTask} inputPlaceholder="Write your task title.." buttonText="Add task" />
         </React.Fragment>
     );
 }
