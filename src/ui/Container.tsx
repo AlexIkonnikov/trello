@@ -1,7 +1,7 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 
-export const Container = ({children}: ContainerProps): JSX.Element => {
+export const Container: FC<ContainerProps> = ({children}) => {
     return <StyledContainer>{children}</StyledContainer>
 }
 

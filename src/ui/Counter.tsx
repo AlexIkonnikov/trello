@@ -10,7 +10,7 @@ export const Counter: FC<CounterProps> = ({ numeric }) => {
 };
 
 interface CounterProps {
-    numeric: number;
+    numeric: number
 }
 
 const Number = styled.b`

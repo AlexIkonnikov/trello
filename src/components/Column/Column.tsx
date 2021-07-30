@@ -1,31 +1,24 @@
-import React, { useState } from 'react';
-import { Button } from '../../ui/Button';
+import React, { FC, useState } from 'react';
+import { Form } from '../../ui/Form';
 import { Input } from '../../ui/Input';
-import Tasks from '../Tasks/Tasks';
-import {Col} from './../../ui/Column';
+import { TaskList } from '../TaskList';
+import { Col } from './../../ui/Column';
+import { LS } from './../../services/LocalStorage';
 
-interface Props {
-    nameOfColumn: string;
-    author: string;
-    index: number;
+interface ColumnProps {
+    nameOfColumn: string
+    author: string
+    index: number
 }
 
-function Column({ nameOfColumn, author, index }: Props): JSX.Element {
-    const checkLocalStorage = (): string => {
-        const columnName = localStorage.getItem(`columnName-${index}`);
-        if (columnName !== null) {
-            return columnName;
-        } else {
-            return nameOfColumn;
-        }
-    };
+const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
 
-    const [columnName, changeName] = useState(checkLocalStorage);
+    const [columnName, changeName] = useState(LS.getPlainString(`columnName-${index}`, nameOfColumn));
 
     const [isInputDisabled, setInputState] = useState(true);
 
     const onChangeName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-        localStorage.setItem(`columnName-${index}`, target.value);
+        LS.set(`columnName-${index}`, target.value);
         changeName(target.value);
     };
 
@@ -34,22 +27,22 @@ function Column({ nameOfColumn, author, index }: Props): JSX.Element {
         setInputState(true);
     };
 
+    const onSetInputState = (): void => {
+        setInputState(!isInputDisabled);
+    };
+
     return (
         <Col>
-            <form onSubmit={onChangeInputState}>
+            <Form onSubmit={onChangeInputState}>
                 <Input
                     value={columnName}
                     onChange={onChangeName}
-                    onClick={() => {
-                        setInputState(false);
-                    }}
-                    onBlur={() => {
-                      setInputState(true);
-                  }}
+                    onFocus={onSetInputState}
+                    onBlur={onSetInputState}
                     readOnly={isInputDisabled}
                 />
-            </form>
-            <Tasks userName={author} columnName={columnName} index={index} />
+            </Form>
+            <TaskList userName={author} columnName={columnName} index={index} />
         </Col>
     );
 }

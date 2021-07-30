@@ -1,16 +1,14 @@
-import React from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { Overlay } from '../../ui/Overlay';
 import { ITask } from './../Task/Task';
 import { Form } from './../../ui/Form';
-import { useState } from 'react';
-import Comments, { IComment } from '../Comments/Comments';
-import { useEffect } from 'react';
+import { CommentList, IComment } from './../CommentList';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
 import { Background } from '../../ui/Background';
 
-type Props = {
+type TaskPopupProps = {
     currentUser: string;
     task: ITask;
     columnName: string;
@@ -19,7 +17,7 @@ type Props = {
     deleteTask: (id: string) => void;
 };
 
-function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, currentUser }: Props): JSX.Element {
+const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTask, deleteTask, currentUser }) =>  {
     const [state, setState] = useState({ ...task });
 
     useEffect(() => {
@@ -30,6 +28,8 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
             description: state.description,
             comments: state.comments,
         });
+        document.addEventListener('keydown', onCloseModal);
+        return () => {document.removeEventListener("keydown", onCloseModal)}
     }, [state.comments]);
 
     const onChangeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -37,7 +37,7 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
         setState({ ...state, [name]: value });
     };
 
-    const onCloseModal = ({ key }: React.KeyboardEvent): void => {
+    const onCloseModal = ({ key }: KeyboardEvent): void => {
         if (key === 'Escape') {
             closePopup();
         }
@@ -78,17 +78,19 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
     };
 
     return (
-        <Overlay onKeyDown={onCloseModal} tabIndex={0}>
+        <Overlay tabIndex={-1}>
             <Background>
-                <Form onSubmit={onSaveTask}>
+                <Form onSubmit={onSaveTask} width={400}>
                     <Button
-                        text="X"
+                        type="button"
+                        text="x"
                         onClick={() => {
                             closePopup();
                         }}
+                        css="margin-left: auto;"
                     />
-                    <Input type="text" placeholder={'Author is: ' + task.author} readOnly={true} />
-                    <Input type="text" placeholder={columnName} readOnly={true} />
+                    <Input type="text" label="Author:" name="author"  value={task.author} placeholder={'Author is: ' + task.author} readOnly={true} />
+                    <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
                     <Input
                         type="text"
                         name="title"
@@ -105,12 +107,12 @@ function TaskPopup({ task, columnName, closePopup, updateTask, deleteTask, curre
                         placeholder="Description..."
                         onChange={onChangeHandler}
                     />
-                    <Row justifyContent="space-between">
-                        <Button text="save" type="submit" disabled={state.title.length === 0} />
-                        <Button text="delete" onClick={onDeleteTask} />
+                    <Row justifyContent="flex-end">
+                        <Button type="submit" text="save" disabled={state.title.length === 0} css="margin-right: 10px;" />
+                        <Button type="button" text="delete" view="danger" onClick={onDeleteTask} />
                     </Row>
                 </Form>
-                <Comments
+                <CommentList
                     comments={state.comments}
                     addComment={onAddCommentHandler}
                     deleteComment={onDeleteCommentHandler}

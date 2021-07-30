@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useState } from 'react';
 import { Card } from '../../ui/Card';
-import { IComment } from '../Comments/Comments';
-import TaskPopup from '../TaskPopup/TaskPopup';
+import { IComment } from '../CommentList';
+import { TaskPopup } from '../TaskPopup';
 
 export interface ITask {
     id: string
@@ -12,7 +12,7 @@ export interface ITask {
     comments: Array<IComment>
 }
 
-type Props = {
+type TaskProps = {
     userName: string
     task: ITask;
     columnName: string
@@ -20,7 +20,7 @@ type Props = {
     deleteTask: (id: string) => void
 };
 
-function Task({ task, updateTask, deleteTask, columnName, userName }: Props): JSX.Element {
+const Task: FC<TaskProps> = ({ task, updateTask, deleteTask, columnName, userName }) => {
     const [popupIsVisible, setPopupState] = useState(false);
 
     return (

@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import React, { FC, FormHTMLAttributes } from 'react';
 
-export const Form: FC<FormHTMLAttributes<HTMLFormElement>> = ({ children, ...all }) => {
+export const Form: FC<FormProps> = ({ children, ...all }) => {
     return <FormStyled {...all} >{children}</FormStyled>;
 };
 
-const FormStyled = styled.form``;
+interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+    width?: number
+}
+
+const FormStyled = styled.form<FormProps>`
+    width: ${props => props.width ? props.width + 'px' : 'auto'};
+`;

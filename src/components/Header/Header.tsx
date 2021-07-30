@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Container } from '../../ui/Container';
 import { Greeting } from '../../ui/Greeting';
 import { Header as StyledHeader } from './../../ui/Header';
 
-interface Props {
+interface HeaderProps {
     name?: string;
 }
 
-function Header({ name }: Props): JSX.Element {
+const Header: FC<HeaderProps> = ({ name }) => {
     return (
         <StyledHeader>
             <Container>

@@ -10,7 +10,7 @@ export const Input: FC<TextInputProps> = ({ name, label, ...rest}) => {
             </React.Fragment>
         );
     }
-    return <StyledInput id={name} {...rest} />;
+    return <StyledInput {...rest} />;
 };
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {

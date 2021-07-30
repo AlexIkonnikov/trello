@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Overlay } from '../../ui/Overlay';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Form } from '../../ui/Form';
 import { Background } from '../../ui/Background';
 
-interface Props {
+interface UserPopupProps {
     setName: (name: string) => void;
 }
 
-function UserPopup({ setName }: Props): JSX.Element | null {
+const UserPopup: FC<UserPopupProps> = ({ setName }) => {
     const [userName, setUserName] = useState('');
     const [visible, setVisible] = useState(true);
 
@@ -28,8 +28,8 @@ function UserPopup({ setName }: Props): JSX.Element | null {
             <Overlay>
                 <Background>
                     <Form onSubmit={onSetName}>
-                        <Input name="name" label="Name: " value={userName} onChange={onChangeName} />
-                        <Button text="send" type="submit" disabled={userName.length === 0} />
+                        <Input name="name" label="Please, write your name: " value={userName} onChange={onChangeName} />
+                        <Button text="send" type="submit" disabled={userName.length === 0} css="margin-left: auto;" />
                     </Form>
                 </Background>
             </Overlay>

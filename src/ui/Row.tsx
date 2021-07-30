@@ -10,7 +10,7 @@ export const Row: FC<FlexBoxProps> = ({children, ...all}) => {
 };
 
 interface FlexBoxProps extends  HTMLAttributes<HTMLElement>{
-    justifyContent?: 'start' | 'space-between' | 'space-around'
+    justifyContent?: 'start' | 'space-between' | 'space-around'| 'flex-end'
     alignItems?: 'flex-start' | 'flex-end' | 'center'
 }
 

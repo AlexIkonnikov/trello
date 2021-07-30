@@ -35,8 +35,9 @@ const CardBody = styled.div`
     background: white;
     word-wrap: break-word;
     &:hover {
-        background: lightgray;
+        box-shadow: 1px 2px 3px rgb(0 0 0 / 60%);
         cursor: pointer;
+        transform: scale(1.02);
     }
 `;
 

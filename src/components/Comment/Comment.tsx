@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { FC, 
+    useState } from 'react';
 import { Button } from '../../ui/Button';
 import { Form } from '../../ui/Form';
+import { Item } from '../../ui/Item';
+import { Row } from '../../ui/Row';
 import { UserName } from '../../ui/UserName';
 import { Input } from './../../ui/Input';
-import { IComment } from './../Comments/Comments';
+import { IComment } from './../CommentList';
 
-type Props = {
-    comment: IComment;
-    updateComment: (comment: IComment) => void;
-    deleteComment: (id: string) => void;
+type CommentProps = {
+    comment: IComment
+    updateComment: (comment: IComment) => void
+    deleteComment: (id: string) => void
 };
 
-function Comment({ comment, updateComment, deleteComment }: Props): JSX.Element {
+const Comment: FC<CommentProps> = ({ comment, updateComment, deleteComment }) => {
     const [isEditMode, setMode] = useState(false);
     const [commentMessage, setCommentMessage] = useState(comment.text);
 
@@ -27,34 +30,43 @@ function Comment({ comment, updateComment, deleteComment }: Props): JSX.Element 
 
     if (isEditMode) {
         return (
-            <li key={comment.id} className="list-group-item mb-1 d-flex justify-content-between align-items-center">
+            <Item key={comment.id}>
                 <Form onSubmit={onSubmitForm}>
                     <Input type="text" value={commentMessage} onChange={onChangeCommentMessage} />
-
-                    <Button text="save" type="submit" />
-                    <Button
-                        text="cancel"
-                        type="button"
-                        className="btn btn-warning btn-sm ms-2"
-                        onClick={() => {
-                            setMode(false);
-                        }}
-                    />
+                    <Row justifyContent="flex-end">
+                        <Button text="save" type="submit" css="margin-right: 10px;" />
+                        <Button
+                            view="warrning"
+                            text="cancel"
+                            type="button"
+                            onClick={() => {
+                                setMode(false);
+                            }}
+                        />
+                    </Row>
                 </Form>
-            </li>
+            </Item>
         );
     } else {
         return (
-            <li key={comment.id} className="list-group-item mb-1 d-flex justify-content-between align-items-center">
-                <UserName userName={comment.author} />: {comment.text}
-                <Button
-                    text="edit"
-                    onClick={() => {
-                        setMode(true);
-                    }}
-                />
-                <Button text="delete" onClick={() => deleteComment(comment.id)} />
-            </li>
+            <Item key={comment.id}>
+                <Row justifyContent="space-between">
+                    <Row>
+                        <UserName userName={comment.author} />: {comment.text}
+                    </Row>
+                    <Row>
+                        <Button
+                            view="warrning"
+                            text="edit"
+                            onClick={() => {
+                                setMode(true);
+                            }}
+                            css="margin-right: 10px;"
+                        />
+                        <Button view="danger" text="delete" onClick={() => deleteComment(comment.id)} />
+                    </Row>
+                </Row>
+            </Item>
         );
     }
 }

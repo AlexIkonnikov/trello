@@ -19,5 +19,5 @@ const Column = styled.div`
 const ColumnBody = styled.div`
     background-color: #ebecf0;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 10px;
 `;

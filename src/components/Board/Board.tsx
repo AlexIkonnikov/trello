@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Header from '../Header/Header';
-import Column from '../Column/Column';
-import UserPopup from '../UserPopup/UserPopup';
-import { GlobalStyle } from '../../ui/GlobalStyle';
-import { Container } from '../../ui/Container';
-import { Row } from '../../ui/Row';
+import React, { FC, useState } from 'react';
+import { Header } from './../Header';
+import { Column } from './../Column';
+import { UserPopup } from './../UserPopup';
+import { GlobalStyle } from './../../ui/GlobalStyle';
+import { Container } from './../../ui/Container';
+import { Row } from './../../ui/Row';
 
-function Board(): JSX.Element {
+const Board: FC = () => {
     const [userName, setName] = useState('');
 
     const onChangeUserName = (userName: string): void => {
