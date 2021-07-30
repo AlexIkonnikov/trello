@@ -29,6 +29,9 @@ const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
 
     const onSetInputState = (): void => {
         setInputState(!isInputDisabled);
+        if (columnName === '') {
+          changeName(nameOfColumn);
+        }
     };
 
     return (

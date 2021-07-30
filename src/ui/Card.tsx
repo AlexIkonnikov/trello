@@ -3,15 +3,16 @@ import React, { FC, HTMLAttributes } from 'react';
 import { Row } from './Row';
 import { UserName } from './UserName';
 import { Counter } from './Counter';
+import { Text } from './Text';
 
 export const Card: FC<CardProps> = ({ author, title, commentCount, ...all }) => {
     return (
         <Section {...all}>
             <CardBody>
-                <CardTitle>{title}</CardTitle>
+                <Text css="margin-bottom: 10px;">{title}</Text>
                 <Row justifyContent="space-between" alignItems="center">
                     <Counter numeric={commentCount} />
-                    <UserName userName={author}/>
+                    <UserName userName={author} />
                 </Row>
             </CardBody>
         </Section>
@@ -40,7 +41,3 @@ const CardBody = styled.div`
         transform: scale(1.02);
     }
 `;
-
-const CardTitle = styled.p`
-      margin-bottom: 5px;
-`

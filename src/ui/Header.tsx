@@ -1,7 +1,7 @@
-import React, {FC, ReactNode} from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 
-export const Header: FC<ReactNode> = ({children}) => {
+export const Header: FC = ({children}) => {
     return <StyledHeader>{children}</StyledHeader>;
 }
 

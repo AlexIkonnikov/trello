@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { List } from '../../ui/List';
+import { Text } from '../../ui/Text';
 import { Comment } from '../Comment';
 import { TextForm } from '../TextForm';
 
@@ -25,7 +26,7 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
 
     return (
         <React.Fragment>
-            <h5 className="mt-2 mb-2">Комментарии: </h5>
+            <Text>Комментарии: </Text>
             <List>
                 {comments.map((comment) => {
                     return (
@@ -38,9 +39,7 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
                     );
                 })}
             </List>
-
-            <hr />
-            <h5>Write your comment: </h5>
+            <Text css="margin-bottom: 10px;">Write your comment: </Text>
             <TextForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </React.Fragment>
     );

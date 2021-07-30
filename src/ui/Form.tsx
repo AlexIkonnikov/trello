@@ -10,5 +10,5 @@ interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 const FormStyled = styled.form<FormProps>`
-    width: ${props => props.width ? props.width + 'px' : 'auto'};
+    min-width: ${props => props.width ? props.width + 'px' : 'auto'};
 `;
