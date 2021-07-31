@@ -1,9 +1,9 @@
 import React, {FC, HTMLAttributes} from 'react';
 import styled from 'styled-components';
 
-export const List: FC<HTMLAttributes<HTMLUListElement>> = ({children}) => {
+export const List: FC<HTMLAttributes<HTMLUListElement>> = ({children, ...all}) => {
     return (
-        <ListItem>
+        <ListItem {...all}>
             {children}
         </ListItem>
     );

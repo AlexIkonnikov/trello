@@ -1,8 +1,8 @@
-import React, {FC} from "react";
+import React, {FC, HTMLAttributes} from "react";
 import styled from "styled-components";
 
-export const Header: FC = ({children}) => {
-    return <StyledHeader>{children}</StyledHeader>;
+export const Header: FC<HTMLAttributes<HTMLElement>> = ({children, ...all}) => {
+    return <StyledHeader {...all}>{children}</StyledHeader>;
 }
 
 const StyledHeader = styled.div`

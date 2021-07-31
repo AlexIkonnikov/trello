@@ -1,14 +1,14 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled, {CSSProp} from 'styled-components';
 
-export const Button: FC<ButtonProps> = ({ text, view, css, ...all }) => {
+export const Button: FC<ButtonProps> = ({ text, view, ...all }) => {
     switch (view) {
         case 'danger':
-            return <DangerButton css={css} {...all}>{text}</DangerButton>;
+            return <DangerButton {...all}>{text}</DangerButton>;
         case 'warrning':
-            return <WarrningButton css={css} {...all}>{text}</WarrningButton>;
+            return <WarrningButton {...all}>{text}</WarrningButton>;
         default:
-            return <PrimaryButton css={css} {...all}>{text}</PrimaryButton>;
+            return <PrimaryButton {...all}>{text}</PrimaryButton>;
     }
 };
 

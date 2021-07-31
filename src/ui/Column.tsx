@@ -1,7 +1,7 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const Col: FC<ReactNode> = ({ children }) => {
+export const Col: FC<HTMLAttributes<HTMLElement>> = ({ children }) => {
     return (
         <Column>
             <ColumnBody>{children}</ColumnBody>
