@@ -10,12 +10,21 @@ import { IComment } from './../CommentList';
 
 type CommentProps = {
     comment: IComment;
+    idCommentEdited: string;
+    currentUser: string;
+    setIdCommentEdited: (id: string) => void;
     updateComment: (comment: IComment) => void;
     deleteComment: (id: string) => void;
 };
 
-const Comment: FC<CommentProps> = ({ comment, updateComment, deleteComment }) => {
-    const [isEditMode, setMode] = useState(false);
+const Comment: FC<CommentProps> = ({
+    comment,
+    idCommentEdited,
+    currentUser,
+    setIdCommentEdited,
+    updateComment,
+    deleteComment,
+}) => {
     const [commentMessage, setCommentMessage] = useState(comment.text);
 
     const onChangeCommentMessage = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -25,15 +34,19 @@ const Comment: FC<CommentProps> = ({ comment, updateComment, deleteComment }) =>
     const onSubmitForm = (evt: React.FormEvent): void => {
         evt.preventDefault();
         updateComment({ id: comment.id, author: comment.author, text: commentMessage });
-        setMode(false);
+        onOffEditMode();
     };
 
-    const onChangeMode = (): void => {
-        setMode(!isEditMode);
+    const onActiveEditMode = (): void => {
+        setIdCommentEdited(comment.id);
         setCommentMessage(comment.text);
     };
 
-    if (isEditMode) {
+    const onOffEditMode = (): void => {
+        setIdCommentEdited('');
+    };
+
+    if (idCommentEdited === comment.id) {
         return (
             <Item key={comment.id}>
                 <Form onSubmit={onSubmitForm}>
@@ -45,12 +58,13 @@ const Comment: FC<CommentProps> = ({ comment, updateComment, deleteComment }) =>
                             css="margin-right: 10px;"
                             disabled={commentMessage.length === 0}
                         />
-                        <Button view="warrning" text="cancel" type="button" onClick={onChangeMode} />
+                        <Button view="warrning" text="cancel" type="button" onClick={onOffEditMode} />
                     </Row>
                 </Form>
             </Item>
         );
-    } else {
+    }
+    if (currentUser === comment.author) {
         return (
             <Item key={comment.id}>
                 <Row justifyContent="space-between">
@@ -58,13 +72,33 @@ const Comment: FC<CommentProps> = ({ comment, updateComment, deleteComment }) =>
                         <UserName userName={comment.author} />: <Text css="margin: 0 10px;">{comment.text}</Text>
                     </Row>
                     <Row>
-                        <Button view="warrning" text="edit" onClick={onChangeMode} css="margin-right: 10px;" />
-                        <Button view="danger" text="delete" onClick={() => deleteComment(comment.id)} />
+                        <Button
+                            disabled={idCommentEdited !== ''}
+                            view="warrning"
+                            text="edit"
+                            onClick={onActiveEditMode}
+                            css="margin-right: 10px;"
+                        />
+                        <Button
+                            disabled={idCommentEdited !== ''}
+                            view="danger"
+                            text="delete"
+                            onClick={() => deleteComment(comment.id)}
+                        />
                     </Row>
                 </Row>
             </Item>
         );
     }
+    return (
+        <Item key={comment.id}>
+            <Row justifyContent="space-between">
+                <Row>
+                    <UserName userName={comment.author} />: <Text css="margin: 0 10px;">{comment.text}</Text>
+                </Row>
+            </Row>
+        </Item>
+    );
 };
 
 export default Comment;

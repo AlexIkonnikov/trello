@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { List } from '../../ui/List';
 import { Text } from '../../ui/Text';
@@ -24,9 +24,15 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
         addComment({ id: uuidv4(), author: currentUser, text: message });
     };
 
+    const [idCommentEdited, setIdCommentEdited] = useState('');
+
+    const changeIdCommentEdit = (id: string): void => {
+      setIdCommentEdited(id);
+    };
+
     return (
         <React.Fragment>
-            <Text>Комментарии: </Text>
+            <Text css="margin-bottom: 10px;">Комментарии: </Text>
             <List>
                 {comments.map((comment) => {
                     return (
@@ -35,6 +41,9 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
                             updateComment={updateComment}
                             deleteComment={deleteComment}
                             key={comment.id}
+                            currentUser={currentUser}
+                            idCommentEdited={idCommentEdited}
+                            setIdCommentEdited={changeIdCommentEdit}
                         />
                     );
                 })}
