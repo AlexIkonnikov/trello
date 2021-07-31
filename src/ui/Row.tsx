@@ -18,7 +18,7 @@ const FlexContainer = styled.div<FlexBoxProps>`
     display: flex;
     flex-direction: row;
     justify-content: ${props => props.justifyContent || 'start'};
-    align-items: ${props => props.alignItems || 'flex-start'};
+    align-items: ${props => props.alignItems || 'center'};
     flex-wrap: wrap;
 `;
 

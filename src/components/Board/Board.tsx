@@ -21,7 +21,7 @@ const Board: FC = () => {
             <UserPopup setName={onChangeUserName} />
             <Header name={userName} />
             <Container>
-                <Row>
+                <Row alignItems="flex-start">
                     {defaultColumnsName.map((columnName, indexColumn) => {
                         return (
                             <Column author={userName} nameOfColumn={columnName} key={columnName} index={indexColumn} />

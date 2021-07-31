@@ -7,4 +7,10 @@ export const Item: FC<HTMLAttributes<HTMLUListElement>> = ({children}) => {
 
 const StyledItem = styled.li`
     margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 3px;
+    &:hover {
+      border-color: black;
+    }
 `;
