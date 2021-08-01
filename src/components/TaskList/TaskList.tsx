@@ -21,32 +21,27 @@ const initialState: InitialStateType = {
 const TaskList: FC<TaskListProps> = ({ userName, columnName, index }) => {
     const checkLocalStorage = (): InitialStateType => {
         const data = LS.get(`column-data-${index}`);
-        if (data !== undefined) {
-            return JSON.parse(data);
-        } else {
-            return initialState;
-        }
+        return data !== undefined ? JSON.parse(data) : initialState;
     };
 
-    const [state, setState] = useState(checkLocalStorage);
+    const [state, setState] = useState(checkLocalStorage());
+
+    const setNewState = (newState: InitialStateType): void => {
+        LS.set(`column-data-${index}`, JSON.stringify(newState));
+        setState(newState);
+    };
 
     const addTask = (title: string): void => {
         const newTask = { id: uuidv4(), author: userName, title, description: '', comments: [] };
-        LS.set(`column-data-${index}`, JSON.stringify({ ...state, tasks: [...state.tasks, newTask] }));
-        setState({ ...state, tasks: [...state.tasks, newTask] });
+        setNewState({...state, tasks: [...state.tasks, newTask]});
     };
 
     const updateTask = (task: ITask): void => {
-        LS.set(
-            `column-data-${index}`,
-            JSON.stringify({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) }),
-        );
-        setState({ ...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it)) });
+        setNewState({...state, tasks: state.tasks.map((it) => (it.id === task.id ? task : it))});
     };
 
     const deleteTask = (id: string): void => {
-        LS.set(`column-data-${index}`, JSON.stringify({ ...state, tasks: state.tasks.filter((it) => it.id !== id) }));
-        setState({ ...state, tasks: state.tasks.filter((it) => it.id !== id) });
+        setNewState({...state, tasks: state.tasks.filter((it) => it.id !== id)});
     };
 
     return (
@@ -67,6 +62,6 @@ const TaskList: FC<TaskListProps> = ({ userName, columnName, index }) => {
             <TextForm submit={addTask} inputPlaceholder="Write your task title.." buttonText="Add task" />
         </React.Fragment>
     );
-}
+};
 
 export default TaskList;
