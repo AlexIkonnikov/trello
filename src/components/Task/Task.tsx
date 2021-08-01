@@ -5,38 +5,46 @@ import { IComment } from '../CommentList';
 import { TaskPopup } from '../TaskPopup';
 
 export interface ITask {
-    id: string
-    author: string
-    title: string
-    description: string
-    comments: Array<IComment>
+    id: string;
+    author: string;
+    title: string;
+    description: string;
+    comments: Array<IComment>;
 }
 
 type TaskProps = {
-    userName: string
+    userName: string;
     task: ITask;
-    columnName: string
-    updateTask: (task: ITask) => void
-    deleteTask: (id: string) => void
+    columnName: string;
+    updateTask: (task: ITask) => void;
+    deleteTask: (id: string) => void;
 };
 
 const Task: FC<TaskProps> = ({ task, updateTask, deleteTask, columnName, userName }) => {
     const [popupIsVisible, setPopupState] = useState(false);
 
+    const openPopup = (): void => {
+        setPopupState(true);
+    };
+
+    const closePopup = (): void => {
+        setPopupState(false);
+    };
+
     return (
         <React.Fragment>
-            <Card author={task.author} title={task.title} commentCount={task.comments.length} onClick={() => setPopupState(true)} />
+            <Card author={task.author} title={task.title} commentCount={task.comments.length} onClick={openPopup} />
             {popupIsVisible && (
                 <TaskPopup
                     currentUser={userName}
                     task={task}
                     columnName={columnName}
-                    closePopup={() => setPopupState(false)}
+                    closePopup={closePopup}
                     updateTask={updateTask}
                     deleteTask={deleteTask}
                 />
             )}
         </React.Fragment>
     );
-}
+};
 export default Task;

@@ -46,6 +46,10 @@ const Comment: FC<CommentProps> = ({
         setIdCommentEdited('');
     };
 
+    const onDeleteComment = (): void => {
+        deleteComment(comment.id);
+    };
+
     if (idCommentEdited === comment.id) {
         return (
             <Item key={comment.id}>
@@ -83,7 +87,7 @@ const Comment: FC<CommentProps> = ({
                             disabled={idCommentEdited !== ''}
                             view="danger"
                             text="delete"
-                            onClick={() => deleteComment(comment.id)}
+                            onClick={onDeleteComment}
                         />
                     </Row>
                 </Row>
