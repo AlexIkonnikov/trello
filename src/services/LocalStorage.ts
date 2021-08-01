@@ -10,12 +10,8 @@ export const LS = {
         }
     },
 
-    getPlainString(key: string, defaultString: string): string {
-        const str = this.get(key);
-        if (str !== undefined && typeof(str) === 'string') {
-            return str;
-        } else {
-            return defaultString;
-        }
+    getStringifyData(key: string, defaulValue: string): string {
+        const value = this.get(key);
+        return value !== undefined ? value : defaulValue;
     }
 };

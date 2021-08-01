@@ -20,8 +20,8 @@ const initialState: InitialStateType = {
 
 const TaskList: FC<TaskListProps> = ({ userName, columnName, index }) => {
     const checkLocalStorage = (): InitialStateType => {
-        const data = LS.get(`column-data-${index}`);
-        return data !== undefined ? JSON.parse(data) : initialState;
+        const tasks = LS.getStringifyData(`column-data-${index}`, JSON.stringify(initialState));
+        return JSON.parse(tasks);
     };
 
     const [state, setState] = useState(checkLocalStorage());

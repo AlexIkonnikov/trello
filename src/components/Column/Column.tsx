@@ -13,7 +13,7 @@ interface ColumnProps {
 
 const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
 
-    const [columnName, changeName] = useState(LS.getPlainString(`columnName-${index}`, nameOfColumn));
+    const [columnName, changeName] = useState(LS.getStringifyData(`columnName-${index}`, nameOfColumn));
 
     const [isInputDisabled, setInputState] = useState(true);
 
