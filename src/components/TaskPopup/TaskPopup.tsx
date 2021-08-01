@@ -1,12 +1,11 @@
-import React, {FC, useEffect, useState} from 'react';
-import { Overlay } from '../../ui/Overlay';
+import React, { FC, useEffect, useState } from 'react';
 import { ITask } from './../Task/Task';
 import { Form } from './../../ui/Form';
 import { CommentList, IComment } from './../CommentList';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
-import { Background } from '../../ui/Background';
+import { Popup } from '../../ui/Popup';
 
 type TaskPopupProps = {
     currentUser: string;
@@ -17,7 +16,7 @@ type TaskPopupProps = {
     deleteTask: (id: string) => void;
 };
 
-const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTask, deleteTask, currentUser }) =>  {
+const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTask, deleteTask, currentUser }) => {
     const [state, setState] = useState({ ...task });
 
     useEffect(() => {
@@ -29,7 +28,9 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
             comments: state.comments,
         });
         document.addEventListener('keydown', onCloseModal);
-        return () => {document.removeEventListener("keydown", onCloseModal)}
+        return () => {
+            document.removeEventListener('keydown', onCloseModal);
+        };
     }, [state.comments]);
 
     const onChangeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -78,50 +79,47 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
     };
 
     return (
-        <Overlay tabIndex={-1}>
-            <Background>
-                <Form onSubmit={onSaveTask} width={400}>
-                    <Button
-                        type="button"
-                        text="x"
-                        onClick={() => {
-                            closePopup();
-                        }}
-                        css="margin-left: auto;"
-                    />
-                    <Input type="text" label="Author:" name="author"  value={task.author} placeholder={'Author is: ' + task.author} readOnly={true} />
-                    <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
-                    <Input
-                        type="text"
-                        name="title"
-                        label="Title: "
-                        value={state.title}
-                        placeholder="Title.."
-                        onChange={onChangeHandler}
-                    />
-                    <Input
-                        type="text"
-                        name="description"
-                        label="Description: "
-                        value={state.description}
-                        placeholder="Description..."
-                        onChange={onChangeHandler}
-                    />
-                    <Row justifyContent="flex-end">
-                        <Button type="submit" text="save" disabled={state.title.length === 0} css="margin-right: 10px;" />
-                        <Button type="button" text="delete" view="danger" onClick={onDeleteTask} />
-                    </Row>
-                </Form>
-                <CommentList
-                    comments={state.comments}
-                    addComment={onAddCommentHandler}
-                    deleteComment={onDeleteCommentHandler}
-                    currentUser={currentUser}
-                    updateComment={onUpdateCommentHandler}
+        <Popup onClose={closePopup}>
+            <Form onSubmit={onSaveTask} width={400}>
+                <Input
+                    type="text"
+                    label="Author:"
+                    name="author"
+                    value={task.author}
+                    placeholder={'Author is: ' + task.author}
+                    readOnly={true}
                 />
-            </Background>
-        </Overlay>
+                <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
+                <Input
+                    type="text"
+                    name="title"
+                    label="Title: "
+                    value={state.title}
+                    placeholder="Title.."
+                    onChange={onChangeHandler}
+                />
+                <Input
+                    type="text"
+                    name="description"
+                    label="Description: "
+                    value={state.description}
+                    placeholder="Description..."
+                    onChange={onChangeHandler}
+                />
+                <Row justifyContent="flex-end">
+                    <Button type="submit" text="save" disabled={state.title.length === 0} css="margin-right: 10px;" />
+                    <Button type="button" text="delete" view="danger" onClick={onDeleteTask} />
+                </Row>
+            </Form>
+            <CommentList
+                comments={state.comments}
+                addComment={onAddCommentHandler}
+                deleteComment={onDeleteCommentHandler}
+                currentUser={currentUser}
+                updateComment={onUpdateCommentHandler}
+            />
+        </Popup>
     );
-}
+};
 
 export default TaskPopup;

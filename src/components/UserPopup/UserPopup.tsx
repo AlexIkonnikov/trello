@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Overlay } from '../../ui/Overlay';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Form } from '../../ui/Form';
-import { Background } from '../../ui/Background';
+import { Popup } from '../../ui/Popup';
 
 interface UserPopupProps {
     setName: (name: string) => void;
@@ -25,18 +24,16 @@ const UserPopup: FC<UserPopupProps> = ({ setName }) => {
 
     if (visible) {
         return (
-            <Overlay>
-                <Background>
-                    <Form onSubmit={onSetName}>
-                        <Input name="name" label="Please, write your name: " value={userName} onChange={onChangeName} />
-                        <Button text="send" type="submit" disabled={userName.length === 0} css="margin-left: auto;" />
-                    </Form>
-                </Background>
-            </Overlay>
+            <Popup>
+                <Form onSubmit={onSetName}>
+                    <Input name="name" label="Please, write your name: " value={userName} onChange={onChangeName} />
+                    <Button text="send" type="submit" disabled={userName.length === 0} css="margin-left: auto;" />
+                </Form>
+            </Popup>
         );
     } else {
         return null;
     }
-}
+};
 
 export default UserPopup;
