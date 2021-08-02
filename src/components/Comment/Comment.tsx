@@ -3,10 +3,8 @@ import { Button } from '../../ui/Button';
 import { Form } from '../../ui/Form';
 import { Item } from '../../ui/Item';
 import { Row } from '../../ui/Row';
-import { Text } from '../../ui/Text';
 import { Textarea } from '../../ui/Textarea';
 import { UserName } from '../../ui/UserName';
-import { Input } from './../../ui/Input';
 import { IComment } from './../CommentList';
 
 type CommentProps = {
