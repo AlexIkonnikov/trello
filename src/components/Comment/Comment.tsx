@@ -73,7 +73,7 @@ const Comment: FC<CommentProps> = ({
             <Item key={comment.id}>
                 <Row justifyContent="space-between">
                     <Row>
-                        <UserName userName={comment.author} />: <Text css="margin: 0 10px;">{comment.text}</Text>
+                        <UserName userName={comment.author} />:
                     </Row>
                     <Row>
                         <Button
@@ -91,6 +91,7 @@ const Comment: FC<CommentProps> = ({
                         />
                     </Row>
                 </Row>
+                <Text css="margin-top: 10px;">{comment.text}</Text>
             </Item>
         );
     }
@@ -98,9 +99,10 @@ const Comment: FC<CommentProps> = ({
         <Item key={comment.id}>
             <Row justifyContent="space-between">
                 <Row>
-                    <UserName userName={comment.author} />: <Text css="margin: 0 10px;">{comment.text}</Text>
+                    <UserName userName={comment.author} />:
                 </Row>
             </Row>
+            <Text css="margin-top: 10px;">{comment.text}</Text>
         </Item>
     );
 };

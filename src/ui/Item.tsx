@@ -7,10 +7,9 @@ export const Item: FC<HTMLAttributes<HTMLLIElement>> = ({ children, ...all }) =>
 
 const StyledItem = styled.li`
     margin-bottom: 10px;
-    border: 1px solid transparent;
     border-radius: 5px;
     padding: 3px;
-    &:hover {
-        border-color: black;
-    }
+    background: white;
+    max-width: 400px;
+    word-break: break-word;
 `;
