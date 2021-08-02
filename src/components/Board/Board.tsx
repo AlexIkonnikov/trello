@@ -13,7 +13,7 @@ const Board: FC = () => {
         setName(userName);
     };
 
-    const defaultColumnsName: Array<string> = ['TODO', 'In Proccess', 'Test', 'Done'];
+    const defaultColumnsName: Array<string> = ['TODO', 'In Progress', 'Testing', 'Done'];
 
     return (
         <React.Fragment>
