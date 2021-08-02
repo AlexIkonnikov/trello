@@ -4,6 +4,7 @@ import { Form } from '../../ui/Form';
 import { Item } from '../../ui/Item';
 import { Row } from '../../ui/Row';
 import { Text } from '../../ui/Text';
+import { Textarea } from '../../ui/Textarea';
 import { UserName } from '../../ui/UserName';
 import { Input } from './../../ui/Input';
 import { IComment } from './../CommentList';
@@ -27,7 +28,7 @@ const Comment: FC<CommentProps> = ({
 }) => {
     const [commentMessage, setCommentMessage] = useState(comment.text);
 
-    const onChangeCommentMessage = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
+    const onChangeCommentMessage = ({ target }: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setCommentMessage(target.value);
     };
 
@@ -54,7 +55,7 @@ const Comment: FC<CommentProps> = ({
         return (
             <Item key={comment.id}>
                 <Form onSubmit={onSubmitForm}>
-                    <Input type="text" value={commentMessage} onChange={onChangeCommentMessage} />
+                    <Textarea value={commentMessage} onChange={onChangeCommentMessage} />
                     <Row justifyContent="flex-end">
                         <Button
                             text="save"
@@ -72,9 +73,7 @@ const Comment: FC<CommentProps> = ({
         return (
             <Item key={comment.id}>
                 <Row justifyContent="space-between">
-                    <Row>
-                        <UserName userName={comment.author} />:
-                    </Row>
+                    <UserName userName={comment.author} />
                     <Row>
                         <Button
                             disabled={idCommentEdited !== ''}
@@ -91,18 +90,14 @@ const Comment: FC<CommentProps> = ({
                         />
                     </Row>
                 </Row>
-                <Text css="margin-top: 10px;">{comment.text}</Text>
+                <Textarea value={comment.text} disabled={true}></Textarea>
             </Item>
         );
     }
     return (
         <Item key={comment.id}>
-            <Row justifyContent="space-between">
-                <Row>
-                    <UserName userName={comment.author} />:
-                </Row>
-            </Row>
-            <Text css="margin-top: 10px;">{comment.text}</Text>
+            <UserName userName={comment.author} />
+            <Textarea value={comment.text} disabled={true}></Textarea>
         </Item>
     );
 };

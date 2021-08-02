@@ -10,7 +10,7 @@ export const UserName: FC<UserNameProps> = ({ userName }) => {
 };
 
 interface UserNameProps {
-    userName: string;
+    userName: string
 }
 
 const Bold = styled.b`

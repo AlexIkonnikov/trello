@@ -48,7 +48,6 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
                     );
                 })}
             </List>
-            <Text css="margin-bottom: 10px;">Write your comment: </Text>
             <TextForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </React.Fragment>
     );

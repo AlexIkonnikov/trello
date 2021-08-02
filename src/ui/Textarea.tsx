@@ -9,7 +9,7 @@ const StyledTextarea =  styled.textarea`
     padding: 5px;
     width: 100%;
     resize: none;
-    margin-bottom: 5px;
+    margin: 5px 0;
     color: black;
     background-color: white;
     border: 1px solid #ced4da;
