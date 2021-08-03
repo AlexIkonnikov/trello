@@ -3,7 +3,7 @@ import { Form } from '../../ui/Form';
 import { Input } from '../../ui/Input';
 import { TaskList } from '../TaskList';
 import { Col } from './../../ui/Column';
-import { LS } from './../../services/LocalStorage';
+import { LocalStorage } from './../../services/LocalStorage';
 
 interface ColumnProps {
     nameOfColumn: string
@@ -13,12 +13,12 @@ interface ColumnProps {
 
 const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
 
-    const [columnName, changeName] = useState(LS.getStringifyData(`columnName-${index}`, nameOfColumn));
+    const [columnName, changeName] = useState(LocalStorage.getStringifyData(`columnName-${index}`, nameOfColumn));
 
     const [isInputDisabled, setInputState] = useState(true);
 
     const onChangeName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-        LS.set(`columnName-${index}`, target.value);
+        LocalStorage.set(`columnName-${index}`, target.value);
         changeName(target.value);
     };
 

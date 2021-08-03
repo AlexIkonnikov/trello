@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Task, ITask } from '../Task';
 import { v4 as uuidv4 } from 'uuid';
 import { TextForm } from '../TextForm';
-import { LS } from '../../services/LocalStorage';
+import { LocalStorage } from '../../services/LocalStorage';
 
 interface TaskListProps {
     userName: string;
@@ -20,14 +20,14 @@ const initialState: InitialStateType = {
 
 const TaskList: FC<TaskListProps> = ({ userName, columnName, index }) => {
     const checkLocalStorage = (): InitialStateType => {
-        const tasks = LS.getStringifyData(`column-data-${index}`, JSON.stringify(initialState));
+        const tasks = LocalStorage.getStringifyData(`column-data-${index}`, JSON.stringify(initialState));
         return JSON.parse(tasks);
     };
 
     const [state, setState] = useState(checkLocalStorage());
 
     const setNewState = (newState: InitialStateType): void => {
-        LS.set(`column-data-${index}`, JSON.stringify(newState));
+        LocalStorage.set(`column-data-${index}`, JSON.stringify(newState));
         setState(newState);
     };
 

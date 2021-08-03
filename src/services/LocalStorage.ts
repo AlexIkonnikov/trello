@@ -1,4 +1,4 @@
-export const LS = {
+export const LocalStorage = {
     set(key: string, data: string): void {
         localStorage.setItem(key, data);
     },
