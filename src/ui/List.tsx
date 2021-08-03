@@ -1,5 +1,5 @@
 import React, {FC, HTMLAttributes} from 'react';
-import styled from 'styled-components';
+import styled, { CSSProp } from 'styled-components';
 
 export const List: FC<HTMLAttributes<HTMLUListElement>> = ({children, ...outerProps}) => {
     return (
@@ -9,8 +9,11 @@ export const List: FC<HTMLAttributes<HTMLUListElement>> = ({children, ...outerPr
     );
 };
 
-const ListItem = styled.ul`
-    list-style-type: none;
-    margin-bottom: 10px;
+interface ListProps {
+  containerStyles?: CSSProp
+}
+
+const ListItem = styled.ul<ListProps>`
+    ${props => props.containerStyles ?? ''};
 `;
 
