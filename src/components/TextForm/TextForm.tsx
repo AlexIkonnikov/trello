@@ -1,33 +1,32 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Button } from '../../ui/Button';
-import { Form } from '../../ui/Form';
+import { Form as CustomForm } from '../../ui/Form';
 import { Textarea } from '../../ui/Textarea';
+import { Form, Field, FormProps } from 'react-final-form';
+import { FormApi } from 'final-form';
 
 interface TextFormProps {
-    submit: (title: string) => void
-    buttonText: string
-    inputPlaceholder: string
+    submit: (title: string) => void;
+    buttonText: string;
+    inputPlaceholder: string;
 }
 
 const TextForm: FC<TextFormProps> = ({ submit, inputPlaceholder, buttonText }) => {
-    const [state, setState] = useState({ title: '' });
-
-    const onTitleChange = ({ target }: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        setState({ ...state, title: target.value });
-    };
-
-    const onSubmitForm = (evt: React.FormEvent) => {
-        evt.preventDefault();
-        submit(state.title);
-        setState({ ...state, title: '' });
+    const onSubmitForm = (values: FormProps, form: FormApi<FormProps>): void => {
+        submit(values.text);
+        form.reset();
     };
 
     return (
         <Form onSubmit={onSubmitForm}>
-            <Textarea placeholder={inputPlaceholder} value={state.title} onChange={onTitleChange} />
-            <Button text={buttonText} type="submit" disabled={state.title.length === 0} css="margin-left: auto;" />
+            {({ handleSubmit, pristine }) => (
+                <CustomForm onSubmit={handleSubmit}>
+                    <Field name="text">{({ input }) => <Textarea placeholder={inputPlaceholder} {...input} />}</Field>
+                    <Button text={buttonText} type="submit" disabled={pristine} css="margin-left: auto;" />
+                </CustomForm>
+            )}
         </Form>
     );
-}
+};
 
 export default TextForm;

@@ -1,35 +1,46 @@
 import React, { FC, useState } from 'react';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
-import { Form } from '../../ui/Form';
+import { Form as CustomForm } from '../../ui/Form';
 import { Popup } from '../../ui/Popup';
+import { Form, Field, FormProps} from 'react-final-form';
 
 interface UserPopupProps {
     setName: (name: string) => void;
 }
 
 const UserPopup: FC<UserPopupProps> = ({ setName }) => {
-    const [userName, setUserName] = useState('');
     const [visible, setVisible] = useState(true);
 
-    const onChangeName = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-        setUserName(evt.target.value);
-    };
-
-    const onSetName = (evt: React.FormEvent): void => {
-        evt.preventDefault();
-        setName(userName);
+    const onSetName = (values: FormProps): void => {
+        setName(values.userName);
         setVisible(false);
     };
 
     if (visible) {
         return (
-            <Popup>
-                <Form onSubmit={onSetName}>
-                    <Input name="name" label="Please, write your name: " value={userName} onChange={onChangeName} />
-                    <Button text="send" type="submit" disabled={userName.length === 0} css="margin-left: auto;" />
-                </Form>
-            </Popup>
+            <Form onSubmit={onSetName}>
+                {({handleSubmit, pristine}) => (
+                    <Popup>
+                        <CustomForm onSubmit={handleSubmit}>
+                            <Field name="userName">
+                                {({input}) => (
+                                    <Input
+                                        {...input}
+                                        label="Please, write your name: "
+                                    />
+                                )}
+                            </Field>
+                            <Button
+                                text="send"
+                                type="submit"
+                                disabled={pristine}
+                                css="margin-left: auto;"
+                            />
+                        </CustomForm>
+                    </Popup>
+                )}
+            </Form>
         );
     } else {
         return null;
