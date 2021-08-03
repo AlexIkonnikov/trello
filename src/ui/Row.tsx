@@ -1,9 +1,9 @@
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const Row: FC<FlexBoxProps> = ({children, ...all}) => {
+export const Row: FC<FlexBoxProps> = ({children, ...outerProps}) => {
     return (
-        <FlexContainer {...all}>
+        <FlexContainer {...outerProps}>
             {children}
         </FlexContainer>
     );

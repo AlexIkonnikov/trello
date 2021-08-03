@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled, { CSSProp } from 'styled-components';
 
-export const Text: FC<TextProps> = ({children, ...all}) => {
-    return <StyledText {...all}>{children}</StyledText>;
+export const Text: FC<TextProps> = ({children, ...outerProps}) => {
+    return <StyledText {...outerProps}>{children}</StyledText>;
 }
 
 interface TextProps {

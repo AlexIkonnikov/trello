@@ -1,8 +1,8 @@
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const Item: FC<HTMLAttributes<HTMLLIElement>> = ({ children, ...all }) => {
-    return <StyledItem {...all}>{children}</StyledItem>;
+export const Item: FC<HTMLAttributes<HTMLLIElement>> = ({ children, ...outerProps }) => {
+    return <StyledItem {...outerProps}>{children}</StyledItem>;
 };
 
 const StyledItem = styled.li`

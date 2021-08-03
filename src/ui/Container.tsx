@@ -1,8 +1,8 @@
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const Container: FC<HTMLAttributes<HTMLElement>> = ({ children, ...all }) => {
-    return <StyledContainer {...all}>{children}</StyledContainer>;
+export const Container: FC<HTMLAttributes<HTMLElement>> = ({ children, ...outerProps }) => {
+    return <StyledContainer {...outerProps}>{children}</StyledContainer>;
 };
 
 const StyledContainer = styled.div`

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React, {FC, TextareaHTMLAttributes} from 'react';
 
-export const Textarea: FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ({...all}) => {
-    return <StyledTextarea {...all} />
+export const Textarea: FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ({...outerProps}) => {
+    return <StyledTextarea {...outerProps} />
 }
 
 const StyledTextarea =  styled.textarea`

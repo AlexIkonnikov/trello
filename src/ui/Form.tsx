@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React, { FC, FormHTMLAttributes } from 'react';
 
-export const Form: FC<FormProps> = ({ children, ...all }) => {
-    return <FormStyled {...all} >{children}</FormStyled>;
+export const Form: FC<FormProps> = ({ children, ...outerProps }) => {
+    return <FormStyled {...outerProps} >{children}</FormStyled>;
 };
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {

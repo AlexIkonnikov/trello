@@ -5,9 +5,9 @@ import { UserName } from './UserName';
 import { Counter } from './Counter';
 import { Text } from './Text';
 
-export const Card: FC<CardProps> = ({ author, title, commentCount, ...all }) => {
+export const Card: FC<CardProps> = ({ author, title, commentCount, ...outerProps }) => {
     return (
-        <Section {...all}>
+        <Section {...outerProps}>
             <CardBody>
                 <Text css="margin-bottom: 10px;">{title}</Text>
                 <Row justifyContent="space-between" alignItems="center">
