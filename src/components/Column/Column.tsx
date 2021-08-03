@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Form } from '../../ui/Form';
+import { Form  } from '../../ui/Form';
 import { Input } from '../../ui/Input';
 import { TaskList } from '../TaskList';
 import { Col } from './../../ui/Column';
@@ -22,11 +22,6 @@ const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
         changeName(target.value);
     };
 
-    const onChangeInputState = (evt: React.FormEvent): void => {
-        evt.preventDefault();
-        setInputState(true);
-    };
-
     const onSetInputState = (): void => {
         setInputState(!isInputDisabled);
         if (columnName === '') {
@@ -36,7 +31,7 @@ const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
 
     return (
         <Col>
-            <Form onSubmit={onChangeInputState}>
+            <Form>
                 <Input
                     value={columnName}
                     onChange={onChangeName}

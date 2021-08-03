@@ -1,16 +1,16 @@
 import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const Input: FC<TextInputProps> = ({ name, label, ...rest}) => {
+export const Input: FC<TextInputProps> = ({ name, label, ...outerProps}) => {
     if (name && label) {
         return (
             <React.Fragment>
                 <Label htmlFor={name}>{label}</Label>
-                <StyledInput id={name} name={name} {...rest} />
+                <StyledInput id={name} name={name} {...outerProps} />
             </React.Fragment>
         );
     }
-    return <StyledInput {...rest} />;
+    return <StyledInput {...outerProps} />;
 };
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
