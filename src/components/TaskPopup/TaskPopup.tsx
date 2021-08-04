@@ -6,7 +6,7 @@ import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
 import { Popup } from '../../ui/Popup';
-import { Form, Field, useField } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 
 type TaskPopupProps = {
     currentUser: string;

@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import { Button } from '../../ui/Button';
-import { Form } from '../../ui/Form';
+import { Form as CustomForm } from '../../ui/Form';
 import { Item } from '../../ui/Item';
 import { Row } from '../../ui/Row';
 import { Textarea } from '../../ui/Textarea';
 import { UserName } from '../../ui/UserName';
 import { IComment } from './../CommentList';
+import { Form, Field, FormProps } from 'react-final-form';
 
 type CommentProps = {
     comment: IComment;
@@ -24,21 +25,14 @@ const Comment: FC<CommentProps> = ({
     updateComment,
     deleteComment,
 }) => {
-    const [commentMessage, setCommentMessage] = useState(comment.text);
 
-    const onChangeCommentMessage = ({ target }: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        setCommentMessage(target.value);
-    };
-
-    const onSubmitForm = (evt: React.FormEvent): void => {
-        evt.preventDefault();
-        updateComment({ id: comment.id, author: comment.author, text: commentMessage });
+    const onSubmitForm = (values: FormProps): void => {
+        updateComment({ id: comment.id, author: comment.author, text: values.comment });
         onOffEditMode();
     };
 
     const onActiveEditMode = (): void => {
         setIdCommentEdited(comment.id);
-        setCommentMessage(comment.text);
     };
 
     const onOffEditMode = (): void => {
@@ -52,17 +46,16 @@ const Comment: FC<CommentProps> = ({
     if (idCommentEdited === comment.id) {
         return (
             <Item key={comment.id}>
-                <Form onSubmit={onSubmitForm}>
-                    <Textarea value={commentMessage} onChange={onChangeCommentMessage} />
-                    <Row justifyContent="flex-end">
-                        <Button
-                            text="save"
-                            type="submit"
-                            css="margin-right: 10px;"
-                            disabled={commentMessage.length === 0}
-                        />
-                        <Button view="warrning" text="cancel" type="button" onClick={onOffEditMode} />
-                    </Row>
+                <Form onSubmit={onSubmitForm} initialValues={{ comment: comment.text }}>
+                    {({ handleSubmit }) => (
+                        <CustomForm onSubmit={handleSubmit}>
+                            <Field name="comment">{({ input }) => <Textarea {...input} />}</Field>
+                            <Row justifyContent="flex-end">
+                                <Button text="save" type="submit" css="margin-right: 10px;" disabled={false} />
+                                <Button view="warrning" text="cancel" type="button" onClick={onOffEditMode} />
+                            </Row>
+                        </CustomForm>
+                    )}
                 </Form>
             </Item>
         );
