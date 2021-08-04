@@ -18,8 +18,8 @@ type TaskPopupProps = {
 };
 
 interface FormValues {
-  title: string
-  description: string
+    title: string;
+    description: string;
 }
 
 const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTask, deleteTask, currentUser }) => {
@@ -79,18 +79,18 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
 
     return (
         <Popup onClose={closePopup}>
-            <Form onSubmit={onSaveTask} initialValues={{title: task.title, description: task.description}}>
-                {({ handleSubmit }) => (
+            <Input
+                type="text"
+                label="Author:"
+                name="author"
+                value={task.author}
+                placeholder={'Author is: ' + task.author}
+                readOnly={true}
+            />
+            <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
+            <Form onSubmit={onSaveTask} initialValues={{ title: task.title, description: task.description }}>
+                {({ handleSubmit, values}) => (
                     <CustomForm onSubmit={handleSubmit} width={400}>
-                        <Input
-                            type="text"
-                            label="Author:"
-                            name="author"
-                            value={task.author}
-                            placeholder={'Author is: ' + task.author}
-                            readOnly={true}
-                        />
-                        <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
                         <Field name="title">
                             {({ input }) => <Input {...input} type="text" label="Title: " placeholder="Title.." />}
                         </Field>
@@ -100,7 +100,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
                             )}
                         </Field>
                         <Row justifyContent="flex-end">
-                            <Button type="submit" text="save" disabled={false} css="margin-right: 10px;" />
+                            <Button type="submit" text="save" disabled={!values.title} css="margin-right: 10px;" />
                             <Button type="button" text="delete" view="danger" onClick={onDeleteTask} />
                         </Row>
                     </CustomForm>

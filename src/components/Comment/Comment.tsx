@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Button } from '../../ui/Button';
 import { Form as CustomForm } from '../../ui/Form';
 import { Item } from '../../ui/Item';
@@ -47,11 +47,11 @@ const Comment: FC<CommentProps> = ({
         return (
             <Item key={comment.id}>
                 <Form onSubmit={onSubmitForm} initialValues={{ comment: comment.text }}>
-                    {({ handleSubmit }) => (
+                    {({ handleSubmit, values }) => (
                         <CustomForm onSubmit={handleSubmit}>
                             <Field name="comment">{({ input }) => <Textarea {...input} />}</Field>
                             <Row justifyContent="flex-end">
-                                <Button text="save" type="submit" css="margin-right: 10px;" disabled={false} />
+                                <Button text="save" type="submit" css="margin-right: 10px;" disabled={!values.comment} />
                                 <Button view="warrning" text="cancel" type="button" onClick={onOffEditMode} />
                             </Row>
                         </CustomForm>
