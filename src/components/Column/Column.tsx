@@ -1,42 +1,30 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { changeColumnName, IColumn } from '../../redux/ducks/column';
+import { useAppDispatch } from '../../redux/hook';
 import { Input } from '../../ui/Input';
 import { TaskList } from '../TaskList';
 import { Col } from './../../ui/Column';
-import { LocalStorage } from './../../services/LocalStorage';
 
 interface ColumnProps {
-    nameOfColumn: string;
+    column: IColumn;
     author: string;
-    index: number;
 }
 
-const Column: FC<ColumnProps> = ({ nameOfColumn, author, index }) => {
-    const [columnName, changeName] = useState(LocalStorage.getStringifyData(`columnName-${index}`, nameOfColumn));
+const Column: FC<ColumnProps> = ({ column, author }) => {
 
-    const [isInputDisabled, setInputState] = useState(true);
+    const dispatch = useAppDispatch();
 
     const onChangeName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-        LocalStorage.set(`columnName-${index}`, target.value);
-        changeName(target.value);
-    };
-
-    const onSetInputState = (): void => {
-        setInputState(!isInputDisabled);
-        if (columnName === '') {
-            changeName(nameOfColumn);
-        }
+        dispatch(changeColumnName({id: column.id + '', name: target.value}));
     };
 
     return (
         <Col>
             <Input
-                value={columnName}
+                value={column.name}
                 onChange={onChangeName}
-                onFocus={onSetInputState}
-                onBlur={onSetInputState}
-                readOnly={isInputDisabled}
             />
-            <TaskList userName={author} columnName={columnName} index={index} />
+            <TaskList userName={author} columnName={column.name} />
         </Col>
     );
 };

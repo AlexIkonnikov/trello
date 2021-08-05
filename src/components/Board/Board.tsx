@@ -10,7 +10,7 @@ import { useAppSelector } from '../../redux/hook';
 const Board: FC = () => {
 
     const userName = useAppSelector((state) => state.user.name);
-    const defaultColumnsName: Array<string> = ['TODO', 'In Progress', 'Testing', 'Done'];
+    const defaultColumnsName = useAppSelector((state) => state.column.columns);
 
     return (
         <React.Fragment>
@@ -19,9 +19,9 @@ const Board: FC = () => {
             <Header name={userName} />
             <Container>
                 <Row alignItems="flex-start">
-                    {defaultColumnsName.map((columnName, indexColumn) => {
+                    {defaultColumnsName.map((column) => {
                         return (
-                            <Column author={userName} nameOfColumn={columnName} key={columnName} index={indexColumn} />
+                            <Column author={userName} column={column} key={column.id} />
                         );
                     })}
                 </Row>
