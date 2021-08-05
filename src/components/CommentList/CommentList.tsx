@@ -1,33 +1,38 @@
 import React, { FC, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { addComment } from '../../redux/ducks/tasks';
+import { IComment } from '../../redux/ducks/tasks/types';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { List } from '../../ui/List';
 import { Text } from '../../ui/Text';
 import { Comment } from '../Comment';
 import { TextForm } from '../TextForm';
 
-export interface IComment {
-    id: string;
-    author: string;
-    text: string;
-}
-
 type CommentListProps = {
+    taskId: string;
     currentUser: string;
-    comments: Array<IComment>;
-    addComment: (comment: IComment) => void;
-    deleteComment: (id: string) => void;
-    updateComment: (comment: IComment) => void;
 };
 
-const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment, updateComment, currentUser }) => {
+const CommentList: FC<CommentListProps> = ({ taskId, currentUser }) => {
+    const dispatch = useAppDispatch();
+    const comments = useAppSelector((state) => {
+        const comment: Array<IComment> = [];
+        state.task.tasks.forEach((task) => {
+            if (task.id === taskId) {
+                comment.push(...task.comments);
+            }
+        });
+        return comment;
+    });
+
     const onAddCommentHandler = (message: string): void => {
-        addComment({ id: uuidv4(), author: currentUser, text: message });
+        dispatch(addComment({ task_id: taskId, comment: { id: uuidv4(), author: currentUser, text: message } }));
     };
 
     const [idCommentEdited, setIdCommentEdited] = useState('');
 
     const changeIdCommentEdit = (id: string): void => {
-      setIdCommentEdited(id);
+        setIdCommentEdited(id);
     };
 
     return (
@@ -38,10 +43,9 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
                     return (
                         <Comment
                             comment={comment}
-                            updateComment={updateComment}
-                            deleteComment={deleteComment}
                             key={comment.id}
                             currentUser={currentUser}
+                            taskId={taskId}
                             idCommentEdited={idCommentEdited}
                             setIdCommentEdited={changeIdCommentEdit}
                         />
@@ -51,6 +55,6 @@ const CommentList: FC<CommentListProps> = ({ comments, addComment, deleteComment
             <TextForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </React.Fragment>
     );
-}
+};
 
 export default CommentList;

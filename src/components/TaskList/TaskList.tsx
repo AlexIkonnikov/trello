@@ -1,32 +1,25 @@
-import React, { FC, useState } from 'react';
-import { Task, ITask } from '../Task';
+import React, { FC } from 'react';
+import { Task } from '../Task';
 import { v4 as uuidv4 } from 'uuid';
 import { TextForm } from '../TextForm';
-import { LocalStorage } from '../../services/LocalStorage';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { addTask, deleteTask, updateTask } from '../../redux/ducks/tasks';
+import { addTask } from '../../redux/ducks/tasks';
+import { IColumn } from '../../redux/ducks/column';
+
 
 interface TaskListProps {
     userName: string;
-    columnName: string;
+    column: IColumn;
 }
 
-const TaskList: FC<TaskListProps> = ({ userName, columnName }) => {
+const TaskList: FC<TaskListProps> = ({ userName, column }) => {
 
     const dispatch = useAppDispatch();
-    const tasks = useAppSelector((state) => state.task.tasks);
+    const tasks = useAppSelector((state) => state.task.tasks.filter((task) => task.column_id === column.id));
 
     const onAddTask = (title: string): void => {
-        const newTask = { id: uuidv4(), author: userName, title, description: '', comments: [] };
-        dispatch(addTask(newTask));//
-    };
-
-    const onUpdateTask = (task: ITask): void => {
-        dispatch(updateTask(task));
-    };
-
-    const onDeleteTask = (id: string): void => {
-        dispatch(deleteTask(id));
+        const newTask = { id: uuidv4(), column_id: column.id ,author: userName, title, description: '', comments: [] };
+        dispatch(addTask(newTask));
     };
 
     return (
@@ -37,9 +30,7 @@ const TaskList: FC<TaskListProps> = ({ userName, columnName }) => {
                         <Task
                             userName={userName}
                             task={task}
-                            updateTask={onUpdateTask}
-                            deleteTask={onDeleteTask}
-                            columnName={columnName}
+                            columnName={column.name}
                         />
                     </React.Fragment>
                 );

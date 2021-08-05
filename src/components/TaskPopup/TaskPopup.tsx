@@ -1,20 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ITask } from './../Task/Task';
 import { Form as CustomForm } from './../../ui/Form';
-import { CommentList, IComment } from './../CommentList';
+import { CommentList } from './../CommentList';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
 import { Popup } from '../../ui/Popup';
 import { Form, Field } from 'react-final-form';
+import { deleteTask, ITask, updateTask } from '../../redux/ducks/tasks';
+import { useAppDispatch } from '../../redux/hook';
 
 type TaskPopupProps = {
     currentUser: string;
     task: ITask;
     columnName: string;
     closePopup: () => void;
-    updateTask: (task: ITask) => void;
-    deleteTask: (id: string) => void;
 };
 
 interface FormValues {
@@ -22,22 +21,16 @@ interface FormValues {
     description: string;
 }
 
-const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTask, deleteTask, currentUser }) => {
-    const [commentState, setCommentState] = useState(task.comments);
+const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, currentUser }) => {
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        updateTask({
-            id: task.id,
-            author: task.author,
-            title: task.title,
-            description: task.description,
-            comments: commentState,
-        });
         document.addEventListener('keydown', onCloseModal);
         return () => {
             document.removeEventListener('keydown', onCloseModal);
         };
-    }, [commentState]);
+    }, []);
 
     const onCloseModal = ({ key }: KeyboardEvent): void => {
         if (key === 'Escape') {
@@ -46,35 +39,22 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
     };
 
     const onSaveTask = (values: FormValues): void => {
-        updateTask({
-            id: task.id,
-            author: task.author,
-            title: values.title,
-            description: values.description,
-            comments: commentState,
-        });
+        dispatch(
+            updateTask({
+                id: task.id,
+                column_id: task.column_id,
+                author: task.author,
+                title: values.title,
+                description: values.description,
+                comments: task.comments,
+            }),
+        );
         closePopup();
     };
 
     const onDeleteTask = () => {
-        deleteTask(task.id);
+        dispatch(deleteTask(task.id));
         closePopup();
-    };
-
-    const onAddCommentHandler = (comment: IComment): void => {
-        setCommentState([...commentState, comment]);
-    };
-
-    const onUpdateCommentHandler = (newComment: IComment): void => {
-        setCommentState([
-            ...commentState.map((comment) => {
-                return comment.id === newComment.id ? newComment : comment;
-            }),
-        ]);
-    };
-
-    const onDeleteCommentHandler = (id: string) => {
-        setCommentState([...commentState.filter((comment) => comment.id !== id)]);
     };
 
     return (
@@ -89,7 +69,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
             />
             <Input type="text" label="Column name:" name="column" value={columnName} readOnly={true} />
             <Form onSubmit={onSaveTask} initialValues={{ title: task.title, description: task.description }}>
-                {({ handleSubmit, values}) => (
+                {({ handleSubmit, values }) => (
                     <CustomForm onSubmit={handleSubmit} width={400}>
                         <Field name="title">
                             {({ input }) => <Input {...input} type="text" label="Title: " placeholder="Title.." />}
@@ -107,11 +87,8 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, updateTas
                 )}
             </Form>
             <CommentList
-                comments={commentState}
-                addComment={onAddCommentHandler}
-                deleteComment={onDeleteCommentHandler}
+                taskId={task.id}
                 currentUser={currentUser}
-                updateComment={onUpdateCommentHandler}
             />
         </Popup>
     );

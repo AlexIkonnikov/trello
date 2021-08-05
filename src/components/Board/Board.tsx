@@ -20,9 +20,7 @@ const Board: FC = () => {
             <Container>
                 <Row alignItems="flex-start">
                     {defaultColumnsName.map((column) => {
-                        return (
-                            <Column author={userName} column={column} key={column.id} />
-                        );
+                        return <Column author={userName} column={column} key={column.id} />;
                     })}
                 </Row>
             </Container>

@@ -5,29 +5,28 @@ import { Item } from '../../ui/Item';
 import { Row } from '../../ui/Row';
 import { Textarea } from '../../ui/Textarea';
 import { UserName } from '../../ui/UserName';
-import { IComment } from './../CommentList';
 import { Form, Field, FormProps } from 'react-final-form';
+import { IComment } from '../../redux/ducks/tasks/types';
+import { useAppDispatch } from '../../redux/hook';
+import { deleteComment, updateComment } from '../../redux/ducks/tasks';
 
 type CommentProps = {
+    taskId: string;
     comment: IComment;
     idCommentEdited: string;
     currentUser: string;
     setIdCommentEdited: (id: string) => void;
-    updateComment: (comment: IComment) => void;
-    deleteComment: (id: string) => void;
 };
 
-const Comment: FC<CommentProps> = ({
-    comment,
-    idCommentEdited,
-    currentUser,
-    setIdCommentEdited,
-    updateComment,
-    deleteComment,
-}) => {
-
+const Comment: FC<CommentProps> = ({ taskId, comment, idCommentEdited, currentUser, setIdCommentEdited }) => {
+    const dispatch = useAppDispatch();
     const onSubmitForm = (values: FormProps): void => {
-        updateComment({ id: comment.id, author: comment.author, text: values.comment });
+        dispatch(
+            updateComment({
+                task_id: taskId,
+                comment: { id: comment.id, author: comment.author, text: values.comment },
+            }),
+        );
         onOffEditMode();
     };
 
@@ -40,7 +39,7 @@ const Comment: FC<CommentProps> = ({
     };
 
     const onDeleteComment = (): void => {
-        deleteComment(comment.id);
+        dispatch(deleteComment({task_id: taskId, comment: comment}));
     };
 
     if (idCommentEdited === comment.id) {
@@ -51,7 +50,12 @@ const Comment: FC<CommentProps> = ({
                         <CustomForm onSubmit={handleSubmit}>
                             <Field name="comment">{({ input }) => <Textarea {...input} />}</Field>
                             <Row justifyContent="flex-end">
-                                <Button text="save" type="submit" css="margin-right: 10px;" disabled={!values.comment} />
+                                <Button
+                                    text="save"
+                                    type="submit"
+                                    css="margin-right: 10px;"
+                                    disabled={!values.comment}
+                                />
                                 <Button view="warrning" text="cancel" type="button" onClick={onOffEditMode} />
                             </Row>
                         </CustomForm>

@@ -15,7 +15,7 @@ const Column: FC<ColumnProps> = ({ column, author }) => {
     const dispatch = useAppDispatch();
 
     const onChangeName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-        dispatch(changeColumnName({id: column.id + '', name: target.value}));
+        dispatch(changeColumnName({id: column.id, name: target.value}));
     };
 
     return (
@@ -24,7 +24,7 @@ const Column: FC<ColumnProps> = ({ column, author }) => {
                 value={column.name}
                 onChange={onChangeName}
             />
-            <TaskList userName={author} columnName={column.name} />
+            <TaskList userName={author} column={column} />
         </Col>
     );
 };
