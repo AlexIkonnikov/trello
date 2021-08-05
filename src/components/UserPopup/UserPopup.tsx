@@ -4,16 +4,16 @@ import { Input } from '../../ui/Input';
 import { Form as CustomForm } from '../../ui/Form';
 import { Popup } from '../../ui/Popup';
 import { Form, Field, FormProps} from 'react-final-form';
+import { useAppDispatch } from '../../redux/hook';
+import { setUserName } from '../../redux/ducks/user';
 
-interface UserPopupProps {
-    setName: (name: string) => void;
-}
-
-const UserPopup: FC<UserPopupProps> = ({ setName }) => {
+const UserPopup: FC = () => {
     const [visible, setVisible] = useState(true);
 
+    const dispatch = useAppDispatch();
+
     const onSetName = (values: FormProps): void => {
-        setName(values.userName);
+        dispatch(setUserName(values.userName));
         setVisible(false);
     };
 

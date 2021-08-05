@@ -5,20 +5,17 @@ import { UserPopup } from './../UserPopup';
 import { GlobalStyle } from './../../ui/GlobalStyle';
 import { Container } from './../../ui/Container';
 import { Row } from './../../ui/Row';
+import { useAppSelector } from '../../redux/hook';
 
 const Board: FC = () => {
-    const [userName, setName] = useState('');
 
-    const onChangeUserName = (userName: string): void => {
-        setName(userName);
-    };
-
+    const userName = useAppSelector((state) => state.user.name);
     const defaultColumnsName: Array<string> = ['TODO', 'In Progress', 'Testing', 'Done'];
 
     return (
         <React.Fragment>
             <GlobalStyle />
-            <UserPopup setName={onChangeUserName} />
+            <UserPopup />
             <Header name={userName} />
             <Container>
                 <Row alignItems="flex-start">
