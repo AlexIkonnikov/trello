@@ -10,7 +10,7 @@ import { useAppSelector } from '../../redux/hook';
 const Board: FC = () => {
 
     const userName = useAppSelector((state) => state.user.name);
-    const defaultColumnsName = useAppSelector((state) => state.column.columns);
+    const defaultColumnsName = useAppSelector((state) => state.column);
 
     return (
         <React.Fragment>

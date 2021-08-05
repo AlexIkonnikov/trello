@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Form as CustomForm } from './../../ui/Form';
 import { CommentList } from './../CommentList';
 import { Button } from '../../ui/Button';
@@ -6,13 +6,13 @@ import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
 import { Popup } from '../../ui/Popup';
 import { Form, Field } from 'react-final-form';
-import { deleteTask, ITask, updateTask } from '../../redux/ducks/tasks';
-import { useAppDispatch } from '../../redux/hook';
+import { addComment, deleteTask, ITask, updateTask } from '../../redux/ducks/tasks';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { TextForm } from '../TextForm';
+import { v4 as uuidv4 } from 'uuid';
 
 type TaskPopupProps = {
-    currentUser: string;
     task: ITask;
-    columnName: string;
     closePopup: () => void;
 };
 
@@ -21,9 +21,18 @@ interface FormValues {
     description: string;
 }
 
-const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, currentUser }) => {
-
+const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     const dispatch = useAppDispatch();
+    const columnName = useAppSelector((state) => {
+        let result = '';
+        state.column.forEach((col) => {
+            if (col.id === task.column_id) {
+                result = col.name;
+            }
+        });
+        return result;
+    });
+    const currentUser = useAppSelector((state) => state.user.name);
 
     useEffect(() => {
         document.addEventListener('keydown', onCloseModal);
@@ -57,6 +66,10 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, currentUs
         closePopup();
     };
 
+    const onAddCommentHandler = (message: string): void => {
+        dispatch(addComment({ task_id: task.id, id: uuidv4(), author: currentUser, text: message }));
+    };
+
     return (
         <Popup onClose={closePopup}>
             <Input
@@ -86,10 +99,8 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, columnName, closePopup, currentUs
                     </CustomForm>
                 )}
             </Form>
-            <CommentList
-                taskId={task.id}
-                currentUser={currentUser}
-            />
+            <CommentList comments={task.comments} taskId={task.id} />
+            <TextForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </Popup>
     );
 };

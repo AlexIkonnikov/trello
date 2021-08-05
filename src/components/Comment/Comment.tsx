@@ -11,21 +11,17 @@ import { useAppDispatch } from '../../redux/hook';
 import { deleteComment, updateComment } from '../../redux/ducks/tasks';
 
 type CommentProps = {
-    taskId: string;
     comment: IComment;
     idCommentEdited: string;
     currentUser: string;
     setIdCommentEdited: (id: string) => void;
 };
 
-const Comment: FC<CommentProps> = ({ taskId, comment, idCommentEdited, currentUser, setIdCommentEdited }) => {
+const Comment: FC<CommentProps> = ({ comment, idCommentEdited, currentUser, setIdCommentEdited }) => {
     const dispatch = useAppDispatch();
     const onSubmitForm = (values: FormProps): void => {
         dispatch(
-            updateComment({
-                task_id: taskId,
-                comment: { id: comment.id, author: comment.author, text: values.comment },
-            }),
+            updateComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: values.comment}),
         );
         onOffEditMode();
     };
@@ -39,7 +35,7 @@ const Comment: FC<CommentProps> = ({ taskId, comment, idCommentEdited, currentUs
     };
 
     const onDeleteComment = (): void => {
-        dispatch(deleteComment({task_id: taskId, comment: comment}));
+        dispatch(deleteComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: comment.text}));
     };
 
     if (idCommentEdited === comment.id) {

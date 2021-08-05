@@ -1,7 +1,3 @@
-export interface ITasks {
-    tasks: Array<ITask>
-}
-
 export interface ITask {
     id: string
     column_id: string
@@ -12,12 +8,9 @@ export interface ITask {
 }
 
 export interface IComment {
-    id: string;
-    author: string;
-    text: string;
+    id: string
+    task_id: string
+    author: string
+    text: string
 }
 
-export interface ICommentPayload {
-  task_id: string
-  comment: IComment
-}

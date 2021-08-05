@@ -5,12 +5,10 @@ import { Card } from '../../ui/Card';
 import { TaskPopup } from '../TaskPopup';
 
 type TaskProps = {
-    userName: string;
     task: ITask;
-    columnName: string;
 };
 
-const Task: FC<TaskProps> = ({ task, columnName, userName }) => {
+const Task: FC<TaskProps> = ({task}) => {
     const [popupIsVisible, setPopupState] = useState(false);
 
     const openPopup = (): void => {
@@ -26,9 +24,7 @@ const Task: FC<TaskProps> = ({ task, columnName, userName }) => {
             <Card author={task.author} title={task.title} commentCount={task.comments.length} onClick={openPopup} />
             {popupIsVisible && (
                 <TaskPopup
-                    currentUser={userName}
                     task={task}
-                    columnName={columnName}
                     closePopup={closePopup}
                 />
             )}
