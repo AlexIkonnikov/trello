@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Header } from './../Header';
 import { Column } from './../Column';
 import { UserPopup } from './../UserPopup';

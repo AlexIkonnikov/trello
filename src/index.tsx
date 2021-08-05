@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import { Board } from './components/Board';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Board />
+            <PersistGate loading={null} persistor={persistor}>
+                <Board />
+            </PersistGate>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root'),
