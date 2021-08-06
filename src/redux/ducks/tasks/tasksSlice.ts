@@ -11,7 +11,7 @@ const tasksSlice = createSlice({
             state.push(payload);
         },
         updateTask(state, { payload }: PayloadAction<ITask>) {
-            state = state.map((task) => (task.id === payload.id ? payload : task));
+            state = state.map((task) => task.id === payload.id ? payload : task);
         },
 
         deleteTask(state, { payload }: PayloadAction<string>) {

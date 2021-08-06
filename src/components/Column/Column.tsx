@@ -16,7 +16,7 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ column, author }) => {
     const dispatch = useAppDispatch();
 
-    const tasks = useAppSelector((state) => state.task.filter((task) => task.column_id === column.id))
+    const tasks = useAppSelector((state) => state.tasks.filter((task) => task.column_id === column.id))
 
     const onChangeName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
         dispatch(changeColumnName({ id: column.id, name: target.value }));
