@@ -8,6 +8,7 @@ import { Col } from './../../ui/Column';
 import { TextForm } from '../TextForm';
 import { v4 as uuidv4 } from 'uuid';
 import { Field, Form, FormSpy, FormProps } from 'react-final-form';
+import { FormApi } from 'final-form';
 import { Form as CustomForm } from './../../ui/Form';
 
 interface ColumnProps {
@@ -20,8 +21,12 @@ const Column: FC<ColumnProps> = ({ column, author }) => {
 
     const tasks = useAppSelector(tasksForColumnSelector(column.id));
 
-    const onChangeName = (values: FormProps): void => {
-        dispatch(changeColumnName({ id: column.id, name: values.name }));
+    const onChangeName = (values: FormProps, form: FormApi<FormProps>): void => {
+        if (values.name === undefined) {
+            form.restart();
+        } else {
+            dispatch(changeColumnName({ id: column.id, name: values.name }));
+        }
     };
 
     const onAddTask = (title: string): void => {
