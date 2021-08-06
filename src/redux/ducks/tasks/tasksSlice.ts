@@ -11,11 +11,11 @@ const tasksSlice = createSlice({
             state.push(payload);
         },
         updateTask(state, { payload }: PayloadAction<ITask>) {
-            state = state.map((task) => task.id === payload.id ? payload : task);
+          return state.map((task) => task.id === payload.id ? payload : task);
         },
 
         deleteTask(state, { payload }: PayloadAction<string>) {
-            state = state.filter((task) => task.id !== payload);
+            return state.filter((task) => task.id !== payload);
         },
 
         addComment(state, { payload }: PayloadAction<IComment>) {
