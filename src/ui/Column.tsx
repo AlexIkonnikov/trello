@@ -12,8 +12,8 @@ export const Col: FC<HTMLAttributes<HTMLElement>> = ({ children }) => {
 const Column = styled.div`
     flex-shrink: 0;
     flex-grow: 0;
-    margin-right: 20px;
-    width: 20%;
+    margin: 0 20px 10px 0;
+    width: 200px;
 `;
 
 const ColumnBody = styled.div`

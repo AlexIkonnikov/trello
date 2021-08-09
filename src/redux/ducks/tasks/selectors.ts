@@ -2,12 +2,12 @@ import { createSelector, Selector} from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { ITask } from './types';
 
-const taskSliceSelector = (state: RootState) => {
+const selectTaskSlice = (state: RootState) => {
     return state.tasks;
 };
 
-const tasksForColumnSelector = (id: string):Selector<RootState, Array<ITask>> => {
-    return createSelector(taskSliceSelector, (tasks: Array<ITask>) => tasks.filter((task) => task.column_id === id));
+const selectTasksForColumn = (id: string):Selector<RootState, Array<ITask>> => {
+    return createSelector(selectTaskSlice, (tasks: Array<ITask>) => tasks.filter((task) => task.column_id === id));
 };
 
-export { tasksForColumnSelector };
+export { selectTasksForColumn };

@@ -6,13 +6,13 @@ import { GlobalStyle } from './../../ui/GlobalStyle';
 import { Container } from './../../ui/Container';
 import { Row } from './../../ui/Row';
 import { useAppSelector } from '../../redux/hook';
-import { userNameSelector } from '../../redux/ducks/user';
-import { columnSliceSelector } from '../../redux/ducks/column';
+import { selectUserName } from '../../redux/ducks/user';
+import { selectColumnSlice } from '../../redux/ducks/column';
 
 const Board: FC = () => {
 
-    const userName = useAppSelector(userNameSelector);
-    const defaultColumnsName = useAppSelector(columnSliceSelector);
+    const userName = useAppSelector(selectUserName);
+    const defaultColumnsName = useAppSelector(selectColumnSlice);
 
     return (
         <React.Fragment>

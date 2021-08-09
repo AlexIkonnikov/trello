@@ -10,8 +10,8 @@ import { addComment, deleteTask, ITask, updateTask } from '../../redux/ducks/tas
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { TextForm } from '../TextForm';
 import { v4 as uuidv4 } from 'uuid';
-import { userNameSelector } from '../../redux/ducks/user';
-import { columnNameByIdSelector } from '../../redux/ducks/column';
+import { selectUserName } from '../../redux/ducks/user';
+import { selectColumnNameById } from '../../redux/ducks/column';
 
 type TaskPopupProps = {
     task: ITask;
@@ -26,8 +26,8 @@ interface FormValues {
 const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     const dispatch = useAppDispatch();
 
-    const columnName = useAppSelector(columnNameByIdSelector(task.column_id));
-    const currentUser = useAppSelector(userNameSelector);
+    const columnName = useAppSelector(selectColumnNameById(task.column_id));
+    const currentUser = useAppSelector(selectUserName);
 
     useEffect(() => {
         document.addEventListener('keydown', onCloseModal);

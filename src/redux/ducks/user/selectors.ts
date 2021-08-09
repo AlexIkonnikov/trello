@@ -2,13 +2,13 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { IUser } from './types';
 
-const userSliceSelector = (state: RootState): IUser => {
+const selectUserSlice = (state: RootState): IUser => {
     return state.user;
 };
 
-const userNameSelector = createSelector(
-    userSliceSelector,
+const selectUserName = createSelector(
+  selectUserSlice,
     (user: IUser) => user.name,
 );
 
-export {userNameSelector}
+export {selectUserName}

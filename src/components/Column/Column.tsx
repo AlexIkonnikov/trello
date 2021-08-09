@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { changeColumnName, IColumn } from '../../redux/ducks/column';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { addTask, tasksForColumnSelector } from '../../redux/ducks/tasks';
+import { addTask, selectTasksForColumn } from '../../redux/ducks/tasks';
 import { Input } from '../../ui/Input';
 import { TaskList } from '../TaskList';
 import { Col } from './../../ui/Column';
@@ -19,7 +19,7 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ column, author }) => {
     const dispatch = useAppDispatch();
 
-    const tasks = useAppSelector(tasksForColumnSelector(column.id));
+    const tasks = useAppSelector(selectTasksForColumn(column.id));
 
     const onChangeName = (values: FormProps, form: FormApi<FormProps>): void => {
         if (values.name === undefined) {
