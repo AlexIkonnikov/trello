@@ -6,12 +6,11 @@ import { Input } from '../../ui/Input';
 import { Row } from '../../ui/Row';
 import { Popup } from '../../ui/Popup';
 import { Form, Field } from 'react-final-form';
-import { addComment, deleteTask, ITask, updateTask } from '../../redux/ducks/tasks';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { TextForm } from '../TextForm';
 import { v4 as uuidv4 } from 'uuid';
-import { selectUserName } from '../../redux/ducks/user';
-import { selectColumnNameById } from '../../redux/ducks/column';
+import { ITask } from '../../redux/ducks/tasks';
+import {actions, selectors } from '../../redux/ducks';
 
 type TaskPopupProps = {
     task: ITask;
@@ -26,8 +25,8 @@ interface FormValues {
 const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     const dispatch = useAppDispatch();
 
-    const columnName = useAppSelector(selectColumnNameById(task.column_id));
-    const currentUser = useAppSelector(selectUserName);
+    const columnName = useAppSelector(selectors.column.selectColumnNameById(task.column_id));
+    const currentUser = useAppSelector(selectors.user.name);
 
     useEffect(() => {
         document.addEventListener('keydown', onCloseModal);
@@ -44,7 +43,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
 
     const onSaveTask = (values: FormValues): void => {
         dispatch(
-            updateTask({
+            actions.task.update({
                 id: task.id,
                 column_id: task.column_id,
                 author: task.author,
@@ -57,12 +56,12 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     };
 
     const onDeleteTask = () => {
-        dispatch(deleteTask(task.id));
+        dispatch(actions.task.delete(task.id));
         closePopup();
     };
 
     const onAddCommentHandler = (message: string): void => {
-        dispatch(addComment({ task_id: task.id, id: uuidv4(), author: currentUser, text: message }));
+        dispatch(actions.comment.add({ task_id: task.id, id: uuidv4(), author: currentUser, text: message }));
     };
 
     return (
@@ -94,7 +93,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
                     </CustomForm>
                 )}
             </Form>
-            <CommentList comments={task.comments} taskId={task.id} />
+            <CommentList comments={task.comments} />
             <TextForm submit={onAddCommentHandler} inputPlaceholder="Write your comment" buttonText="Add comment" />
         </Popup>
     );

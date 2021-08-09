@@ -8,7 +8,7 @@ import { UserName } from '../../ui/UserName';
 import { Form, Field, FormProps } from 'react-final-form';
 import { IComment } from '../../redux/ducks/tasks/types';
 import { useAppDispatch } from '../../redux/hook';
-import { deleteComment, updateComment } from '../../redux/ducks/tasks';
+import { actions } from '../../redux/ducks';
 
 type CommentProps = {
     comment: IComment;
@@ -21,7 +21,7 @@ const Comment: FC<CommentProps> = ({ comment, idCommentEdited, currentUser, setI
     const dispatch = useAppDispatch();
     const onSubmitForm = (values: FormProps): void => {
         dispatch(
-            updateComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: values.comment}),
+          actions.comment.update({task_id: comment.task_id, id: comment.id, author: comment.author, text: values.comment}),
         );
         onOffEditMode();
     };
@@ -35,7 +35,7 @@ const Comment: FC<CommentProps> = ({ comment, idCommentEdited, currentUser, setI
     };
 
     const onDeleteComment = (): void => {
-        dispatch(deleteComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: comment.text}));
+        dispatch(actions.comment.delete({task_id: comment.task_id, id: comment.id, author: comment.author, text: comment.text}));
     };
 
     if (idCommentEdited === comment.id) {

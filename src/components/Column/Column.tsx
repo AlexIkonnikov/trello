@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { changeColumnName, IColumn } from '../../redux/ducks/column';
+import { IColumn } from '../../redux/ducks/column';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { addTask, selectTasksForColumn } from '../../redux/ducks/tasks';
+import { actions, selectors } from '../../redux/ducks';
 import { Input } from '../../ui/Input';
 import { TaskList } from '../TaskList';
 import { Col } from './../../ui/Column';
@@ -19,19 +19,19 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ column, author }) => {
     const dispatch = useAppDispatch();
 
-    const tasks = useAppSelector(selectTasksForColumn(column.id));
+    const tasks = useAppSelector(selectors.task(column.id));
 
     const onChangeName = (values: FormProps, form: FormApi<FormProps>): void => {
         if (values.name === undefined) {
             form.restart();
         } else {
-            dispatch(changeColumnName({ id: column.id, name: values.name }));
+            dispatch(actions.column({ id: column.id, name: values.name }));
         }
     };
 
     const onAddTask = (title: string): void => {
         const newTask = { id: uuidv4(), column_id: column.id, author: author, title, description: '', comments: [] };
-        dispatch(addTask(newTask));
+        dispatch(actions.task.add(newTask));
     };
 
     return (
