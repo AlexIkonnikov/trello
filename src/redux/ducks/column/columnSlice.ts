@@ -11,7 +11,7 @@ const columnSlice = createSlice({
     name: 'column',
     initialState,
     reducers: {
-        changeColumnName(state, { payload }: PayloadAction<IColumn>) {
+        updateColumn(state, { payload }: PayloadAction<IColumn>) {
             state.map((column) => {
                 if (column.id === payload.id) {
                     column.name = payload.name;
@@ -23,4 +23,4 @@ const columnSlice = createSlice({
 });
 
 export default columnSlice.reducer;
-export const { changeColumnName } = columnSlice.actions;
+export const { updateColumn } = columnSlice.actions;

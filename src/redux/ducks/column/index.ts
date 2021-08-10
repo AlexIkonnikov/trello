@@ -1,3 +1,3 @@
-export {default as columnReducer, changeColumnName} from './columnSlice';
+export {default as columnReducer, updateColumn} from './columnSlice';
 export type { IColumn } from './types';
 export {selectColumnSlice, selectColumnNameById} from './selectors';

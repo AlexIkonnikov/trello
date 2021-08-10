@@ -1,4 +1,4 @@
-import { changeColumnName } from './ducks/column';
+import { updateColumn } from './ducks/column';
 import {
     addComment,
     addTask,
@@ -13,7 +13,7 @@ import { selectColumnSlice, selectColumnNameById } from './ducks/column';
 
 export const actions = {
     user: setUserName,
-    column: changeColumnName,
+    column: updateColumn,
     task: {
         add: addTask,
         update: updateTask,
