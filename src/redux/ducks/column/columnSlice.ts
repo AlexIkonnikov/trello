@@ -14,10 +14,10 @@ const columnSlice = createSlice({
         updateColumn(state, { payload }: PayloadAction<IColumn>) {
             state.map((column) => {
                 if (column.id === payload.id) {
-                    column.name = payload.name;
+                    return payload;            
                 }
-                return column;
-            });
+                return column;                  
+            }); 
         },
     },
 });
