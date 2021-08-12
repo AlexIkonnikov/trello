@@ -21,7 +21,7 @@ const Comment: FC<CommentProps> = ({ comment, idCommentEdited, currentUser, setI
     const dispatch = useAppDispatch();
     const onSubmitForm = (values: FormProps): void => {
         dispatch(
-          actions.comment.update({task_id: comment.task_id, id: comment.id, author: comment.author, text: values.comment}),
+          actions.tasks.updateComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: values.comment}),
         );
         onOffEditMode();
     };
@@ -35,7 +35,7 @@ const Comment: FC<CommentProps> = ({ comment, idCommentEdited, currentUser, setI
     };
 
     const onDeleteComment = (): void => {
-        dispatch(actions.comment.delete({task_id: comment.task_id, id: comment.id, author: comment.author, text: comment.text}));
+        dispatch(actions.tasks.deleteComment({task_id: comment.task_id, id: comment.id, author: comment.author, text: comment.text}));
     };
 
     if (idCommentEdited === comment.id) {

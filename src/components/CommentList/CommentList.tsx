@@ -11,7 +11,7 @@ type CommentListProps = {
 };
 
 const CommentList: FC<CommentListProps> = ({ comments }) => {
-    const currentUser = useAppSelector(selectors.user.name);
+    const currentUser = useAppSelector(selectors.user.selectUserName);
 
     const [idCommentEdited, setIdCommentEdited] = useState('');
 

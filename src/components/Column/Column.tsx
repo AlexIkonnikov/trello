@@ -19,19 +19,19 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ column, author }) => {
     const dispatch = useAppDispatch();
 
-    const tasks = useAppSelector(selectors.task(column.id));
+    const tasks = useAppSelector(selectors.tasks.selectTasksForColumn(column.id));
 
     const onChangeName = (values: FormProps, form: FormApi<FormProps>): void => {
         if (values.name === undefined) {
             form.restart();
         } else {
-            dispatch(actions.column({ id: column.id, name: values.name }));
+            dispatch(actions.column.updateColumn({ id: column.id, name: values.name }));
         }
     };
 
     const onAddTask = (title: string): void => {
         const newTask = { id: uuidv4(), column_id: column.id, author: author, title, description: '', comments: [] };
-        dispatch(actions.task.add(newTask));
+        dispatch(actions.tasks.addTask(newTask));
     };
 
     return (

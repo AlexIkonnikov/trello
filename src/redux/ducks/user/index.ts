@@ -1,3 +1,3 @@
-export { default as userReducer, setUserName } from './userSlice';
+export { default as userReducer, actions } from './userSlice';
 export type { IUser } from './types';
-export { selectUserName } from './selectors';
+export { selectors } from './selectors';

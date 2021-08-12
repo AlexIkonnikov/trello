@@ -13,7 +13,7 @@ const UserPopup: FC = () => {
     const dispatch = useAppDispatch();
 
     const onSetName = (values: FormProps): void => {
-        dispatch(actions.user(values.userName));
+        dispatch(actions.user.setUserName(values.userName));
         setVisible(false);
     };
 

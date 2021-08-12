@@ -1,3 +1,3 @@
-export {default as tasksReducer, addTask, updateTask, deleteTask, addComment, updateComment, deleteComment} from './tasksSlice';
+export {default as tasksReducer, actions} from './tasksSlice';
 export type { ITask } from './types';
-export { selectTasksForColumn } from './selectors';
+export { selectors } from './selectors';

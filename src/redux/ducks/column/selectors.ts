@@ -13,4 +13,4 @@ const selectColumnNameById = (columnId: string): Selector<RootState, string> => 
     });
 }
 
-export {selectColumnSlice, selectColumnNameById};
+export const selectors = {selectColumnSlice, selectColumnNameById};

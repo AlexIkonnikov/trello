@@ -1,38 +1,15 @@
-import { updateColumn } from './ducks/column';
-import {
-    addComment,
-    addTask,
-    deleteComment,
-    deleteTask,
-    selectTasksForColumn,
-    updateComment,
-    updateTask,
-} from './ducks/tasks';
-import { selectUserName, setUserName } from './ducks/user';
-import { selectColumnSlice, selectColumnNameById } from './ducks/column';
+import * as column from './ducks/column';
+import * as tasks from './ducks/tasks';
+import * as user from './ducks/user';
 
 export const actions = {
-    user: setUserName,
-    column: updateColumn,
-    task: {
-        add: addTask,
-        update: updateTask,
-        delete: deleteTask,
-    },
-    comment: {
-        add: addComment,
-        update: updateComment,
-        delete: deleteComment,
-    },
+    user: user.actions,
+    tasks: tasks.actions,
+    column: column.actions
 };
 
 export const selectors = {
-    user: {
-        name: selectUserName,
-    },
-    task: selectTasksForColumn,
-    column: {
-        selectColumnSlice,
-        selectColumnNameById,
-    },
+    user: user.selectors,
+    tasks: tasks.selectors,
+    column: column.selectors
 };

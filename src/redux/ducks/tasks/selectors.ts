@@ -10,4 +10,4 @@ const selectTasksForColumn = (id: string):Selector<RootState, Array<ITask>> => {
     return createSelector(selectTaskSlice, (tasks: Array<ITask>) => tasks.filter((task) => task.column_id === id));
 };
 
-export { selectTasksForColumn };
+export const selectors = {selectTaskSlice, selectTasksForColumn};

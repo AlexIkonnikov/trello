@@ -26,7 +26,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     const dispatch = useAppDispatch();
 
     const columnName = useAppSelector(selectors.column.selectColumnNameById(task.column_id));
-    const currentUser = useAppSelector(selectors.user.name);
+    const currentUser = useAppSelector(selectors.user.selectUserName);
 
     useEffect(() => {
         document.addEventListener('keydown', onCloseModal);
@@ -43,7 +43,7 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
 
     const onSaveTask = (values: FormValues): void => {
         dispatch(
-            actions.task.update({
+            actions.tasks.updateTask({
                 id: task.id,
                 column_id: task.column_id,
                 author: task.author,
@@ -56,12 +56,12 @@ const TaskPopup: FC<TaskPopupProps> = ({ task, closePopup }) => {
     };
 
     const onDeleteTask = () => {
-        dispatch(actions.task.delete(task.id));
+        dispatch(actions.tasks.deleteTask(task.id));
         closePopup();
     };
 
     const onAddCommentHandler = (message: string): void => {
-        dispatch(actions.comment.add({ task_id: task.id, id: uuidv4(), author: currentUser, text: message }));
+        dispatch(actions.tasks.addComment({ task_id: task.id, id: uuidv4(), author: currentUser, text: message }));
     };
 
     return (

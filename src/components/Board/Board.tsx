@@ -10,7 +10,7 @@ import { selectors } from '../../redux/ducks';
 
 const Board: FC = () => {
 
-    const userName = useAppSelector(selectors.user.name);
+    const userName = useAppSelector(selectors.user.selectUserName);
     const defaultColumnsName = useAppSelector(selectors.column.selectColumnSlice);
 
     return (

@@ -11,4 +11,4 @@ const selectUserName = createSelector(
     (user: IUser) => user.name,
 );
 
-export {selectUserName}
+export const selectors = {selectUserSlice, selectUserName};
