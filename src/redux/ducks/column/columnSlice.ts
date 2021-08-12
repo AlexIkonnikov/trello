@@ -12,12 +12,8 @@ const columnSlice = createSlice({
     initialState,
     reducers: {
         updateColumn(state, { payload }: PayloadAction<IColumn>) {
-            state.map((column) => {
-                if (column.id === payload.id) {
-                    return payload;            
-                }
-                return column;                  
-            }); 
+            const index = state.findIndex(column => column.id === payload.id);
+            if (index !== - 1) state.splice(index, 1, payload);
         },
     },
 });
