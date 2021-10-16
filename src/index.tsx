@@ -1,18 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Board } from './components/Board';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
+import { store, persistor } from './redux/store'; 
+import { BrowserRouter } from "react-router-dom";
+import RootRouter from './navigation/RootRouter';
+import { GlobalStyle } from './ui/GlobalStyle';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <Board />
-            </PersistGate>
-        </Provider>
+        <BrowserRouter>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <GlobalStyle/>
+                    <RootRouter />
+                </PersistGate>
+            </Provider>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'),
 );

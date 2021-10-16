@@ -10,4 +10,5 @@ const StyledHeader = styled.div`
     padding: 15px 0;
     background-color: #0079bf;
     margin-bottom: 20px;
+    width: 100%;
 `

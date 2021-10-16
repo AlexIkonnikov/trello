@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
-import { Header } from './../Header';
-import { Column } from './../Column';
-import { UserPopup } from './../UserPopup';
-import { GlobalStyle } from './../../ui/GlobalStyle';
-import { Container } from './../../ui/Container';
-import { Row } from './../../ui/Row';
+import { Header } from '../../components/Header';
+import { Column } from '../../components/Column';
+import { UserPopup } from '../../components/UserPopup';
+import { Container } from '../../ui/Container';
+import { Row } from '../../ui/Row';
 import { useAppSelector } from '../../redux/hook';
 import { selectors } from '../../redux/ducks';
 
@@ -15,7 +14,6 @@ const Board: FC = () => {
 
     return (
         <React.Fragment>
-            <GlobalStyle />
             <UserPopup />
             <Header name={userName} />
             <Container>
