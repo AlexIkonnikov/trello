@@ -7,6 +7,9 @@ import { store, persistor } from './redux/store';
 import { BrowserRouter } from "react-router-dom";
 import RootRouter from './navigation/RootRouter';
 import { GlobalStyle } from './ui/GlobalStyle';
+import { injectStore } from './services/ApiClient';
+
+injectStore(store);
 
 ReactDOM.render(
     <React.StrictMode>

@@ -9,11 +9,13 @@ export const Link: FC<NavLinkProps> = ({ children, ...props }) => {
 }
 
 const CustomLink = styled(NavLink)`
-    color: black;
+    color: white;
     text-decoration: none;
     border-bottom: 1px solid transparent;
-    font-weight: bold;
+    &.active {
+        border-color: red;
+    }
     &:hover {
-        border-color: gray;
+        border-color: red;
     }
 `;

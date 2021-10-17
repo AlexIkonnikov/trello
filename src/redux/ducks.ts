@@ -1,6 +1,6 @@
-import * as column from './ducks/column';
-import * as tasks from './ducks/tasks';
-import * as user from './ducks/user';
+import * as column from './column';
+import * as tasks from './tasks';
+import * as user from './user';
 
 export const actions = {
     user: user.actions,

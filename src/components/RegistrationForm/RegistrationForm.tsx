@@ -2,18 +2,19 @@ import React, { FC } from 'react'
 import { Field, Form } from 'react-final-form'
 import styled from 'styled-components'
 import { ROUTES } from '../../navigation/routes'
+import { actions } from '../../redux/ducks'
+import { useAppDispatch } from '../../redux/hook'
+import { CreateUserDTO } from '../../redux/user/types'
 import { Button } from '../../ui/Button'
 import { Input } from '../../ui/Input'
 import { Link } from '../../ui/Link'
 
-interface RegistrationForm {
-    name: string;
-    email: string;
-    password: string;
-}
 
 const RegistrationForm: FC = () => {
-    const handleRegistration = (values: RegistrationForm) => { console.log(values) }
+    const dispatch = useAppDispatch();
+    const handleRegistration = (values: CreateUserDTO) => {
+        dispatch(actions.user.signUpRequest({...values}));
+    }
     return (
         <Form onSubmit={handleRegistration}
             render={({ handleSubmit }) => (

@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 import { ROUTES } from '../../navigation/routes';
+import { actions } from '../../redux/ducks';
+import { useAppDispatch } from '../../redux/hook';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Link } from '../../ui/Link';
@@ -12,7 +14,10 @@ interface AuthForm {
 }
 
 const AuthForm: FC = () => {
-    const handleAuth = (values: AuthForm) => { console.log(values) };
+    const dispatch = useAppDispatch();
+    const handleAuth = (values: AuthForm) => {
+        dispatch(actions.user.signInRequest({...values}))
+    };
     return (
         <Form onSubmit={handleAuth}
             render={({ handleSubmit, dirtyFields }) => (

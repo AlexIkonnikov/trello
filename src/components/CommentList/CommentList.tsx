@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { IComment } from '../../redux/ducks/tasks/types';
+import { IComment } from '../../redux/tasks/types';
 import { useAppSelector } from '../../redux/hook';
 import { List } from '../../ui/List';
 import { Text } from '../../ui/Text';

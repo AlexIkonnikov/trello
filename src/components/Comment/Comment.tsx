@@ -6,7 +6,7 @@ import { Row } from '../../ui/Row';
 import { Textarea } from '../../ui/Textarea';
 import { UserName } from '../../ui/UserName';
 import { Form, Field, FormProps } from 'react-final-form';
-import { IComment } from '../../redux/ducks/tasks/types';
+import { IComment } from '../../redux/tasks/types';
 import { useAppDispatch } from '../../redux/hook';
 import { actions } from '../../redux/ducks';
 

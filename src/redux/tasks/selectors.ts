@@ -1,5 +1,5 @@
 import { createSelector, Selector} from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { RootState } from '../store';
 import { ITask } from './types';
 
 const selectTaskSlice = (state: RootState) => {

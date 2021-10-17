@@ -9,7 +9,7 @@ import { Form, Field } from 'react-final-form';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { TextForm } from '../TextForm';
 import { v4 as uuidv4 } from 'uuid';
-import { ITask } from '../../redux/ducks/tasks';
+import { ITask } from '../../redux/tasks';
 import {actions, selectors } from '../../redux/ducks';
 
 type TaskPopupProps = {

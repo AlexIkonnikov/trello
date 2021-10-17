@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Task } from '../Task';
-import { ITask } from '../../redux/ducks/tasks';
+import { ITask } from '../../redux/tasks';
 
 
 interface TaskListProps {

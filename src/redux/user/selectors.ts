@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { RootState } from '../store';
 import { IUser } from './types';
 
 const selectUserSlice = (state: RootState): IUser => {
@@ -11,4 +11,9 @@ const selectUserName = createSelector(
     (user: IUser) => user.name,
 );
 
-export const selectors = {selectUserSlice, selectUserName};
+const selectToken = createSelector(
+  selectUserSlice,
+  (user: IUser) => user.token,
+);
+
+export const selectors = { selectUserSlice, selectUserName, selectToken };

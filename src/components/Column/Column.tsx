@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IColumn } from '../../redux/ducks/column';
+import { IColumn } from '../../redux/column';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { actions, selectors } from '../../redux/ducks';
 import { Input } from '../../ui/Input';
@@ -25,7 +25,7 @@ const Column: FC<ColumnProps> = ({ column, author }) => {
         if (values.name === undefined) {
             form.restart();
         } else {
-            dispatch(actions.column.updateColumn({ id: column.id, name: values.name }));
+            dispatch(actions.column.updateColumn({ id: column.id, title: values.name }));
         }
     };
 
@@ -36,7 +36,7 @@ const Column: FC<ColumnProps> = ({ column, author }) => {
 
     return (
         <Col>
-            <Form onSubmit={onChangeName} initialValues={{name: column.name}}>
+            <Form onSubmit={onChangeName} initialValues={{name: column.title}}>
                 {({ handleSubmit }) => (
                     <CustomForm onSubmit={handleSubmit}>
                         <Field name="name">{({input}) =>

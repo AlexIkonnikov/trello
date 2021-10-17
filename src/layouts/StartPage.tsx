@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styled from 'styled-components';
 
-export const StartPageLayout: FC = ({ children }) => {
+export const StartPage: FC = ({ children }) => {
     return (
         <Center>
             {children}
